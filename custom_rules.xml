@@ -16,7 +16,7 @@
     <property name="out.absolute.bundle.dir" location="${out.absolute.dir}/bundle" />
     <property name="intermediate.dex.bundle.file" location="${out.absolute.bundle.dir}/${dex.file.name}" />
 
-    <property name="out.bundle.file" value="${out.absolute.dir}/AtmosphereGesturePlayerLibs.jar" />
+    <property name="out.bundle.file" value="${out.absolute.dir}/AtmosphereUIAutomatorBridgeLibs.jar" />
 
     <target name="-pre-compile">
         <mkdir dir="${out.absolute.bundle.dir}" />

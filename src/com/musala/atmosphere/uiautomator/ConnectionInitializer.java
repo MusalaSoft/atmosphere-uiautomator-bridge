@@ -1,12 +1,12 @@
-package com.musala.atmosphere.gestureplayer;
+package com.musala.atmosphere.uiautomator;
 
 import java.io.IOException;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
-import com.musala.atmosphere.gestureplayer.socket.PlayerSocketServer;
+import com.musala.atmosphere.uiautomator.socket.UIAutomatorBridgeSocketServer;
 
 /**
- * Class used to start the socket server for the ATMOSPHERE gesture player.
+ * Class used to start the socket server for the ATMOSPHERE UIAutomator bridge.
  * 
  * @author yordan.petrov
  * 
@@ -20,7 +20,7 @@ public class ConnectionInitializer extends UiAutomatorTestCase
 	 */
 	public void testRun() throws IOException
 	{
-		PlayerSocketServer playerSocketServer = new PlayerSocketServer();
-		playerSocketServer.run();
+		UIAutomatorBridgeSocketServer bridgeSocketServer = new UIAutomatorBridgeSocketServer();
+		bridgeSocketServer.run();
 	}
 }

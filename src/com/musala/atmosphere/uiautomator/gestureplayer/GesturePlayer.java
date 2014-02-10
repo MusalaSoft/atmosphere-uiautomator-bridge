@@ -1,4 +1,4 @@
-package com.musala.atmosphere.gestureplayer;
+package com.musala.atmosphere.uiautomator.gestureplayer;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,10 +9,17 @@ import android.hardware.input.InputManager;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 
-import com.musala.atmosphere.commons.ad.gestureplayer.Anchor;
-import com.musala.atmosphere.commons.ad.gestureplayer.Timeline;
-import com.musala.atmosphere.gestureplayer.MotionEventSender;
+import com.musala.atmosphere.commons.gesture.Anchor;
+import com.musala.atmosphere.commons.gesture.Timeline;
 
+/**
+ * Main class behind on-device gesture simulation. Used to arrange a time line (consisting of anchor points to be
+ * reached at specific moments in time). This class then can be used to calculate each finger's position at the current
+ * moment and inject the appropriate high level events in the OS.
+ * 
+ * @author georgi.gaydarov
+ * 
+ */
 public class GesturePlayer
 {
 	private MotionEventSender eventSender = new MotionEventSender();
@@ -53,6 +60,21 @@ public class GesturePlayer
 		Integer newId = timelineIds.size();
 		timelineIds.add(newId);
 		timelines.put(newId, timeline);
+	}
+
+	/**
+	 * Adds a list of {@link Timeline Timeline} instances that will be used for touch event generation when
+	 * {@link #act() act()} is invoked.
+	 * 
+	 * @param timelines
+	 *        - the list of timelines to be added.
+	 */
+	public void insertTimelineList(List<Timeline> timelines)
+	{
+		for (Timeline timeline : timelines)
+		{
+			insertTimeline(timeline);
+		}
 	}
 
 	/**

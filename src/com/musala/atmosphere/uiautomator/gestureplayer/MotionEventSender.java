@@ -1,4 +1,4 @@
-package com.musala.atmosphere.gestureplayer;
+package com.musala.atmosphere.uiautomator.gestureplayer;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -14,7 +14,13 @@ import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
 import android.view.MotionEvent.PointerProperties;
 
-public class MotionEventSender
+/**
+ * Class that constructs adequate high level events and injects them in the device OS event mechanisms
+ * 
+ * @author georgi.gaydarov
+ * 
+ */
+class MotionEventSender
 {
 	private final static int FAILURE_EXIT_CODE = -666;
 
