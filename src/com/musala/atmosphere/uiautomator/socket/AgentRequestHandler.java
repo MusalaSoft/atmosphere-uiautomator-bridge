@@ -22,9 +22,9 @@ public class AgentRequestHandler implements RequestHandler<UIAutomatorBridgeRequ
     }
 
     @Override
-    public Object handle(Request<UIAutomatorBridgeRequest> gesturePlayerRequest) {
-        UIAutomatorBridgeRequest requestType = gesturePlayerRequest.getType();
-        Object[] arguments = gesturePlayerRequest.getArguments();
+    public Object handle(Request<UIAutomatorBridgeRequest> bridgeRequest) {
+        UIAutomatorBridgeRequest requestType = bridgeRequest.getType();
+        Object[] arguments = bridgeRequest.getArguments();
 
         Object response;
         switch (requestType) {
@@ -84,7 +84,6 @@ public class AgentRequestHandler implements RequestHandler<UIAutomatorBridgeRequ
      * @return boolean indicating whether the UI element was found or not.
      */
     private Object clearField(UiElementDescriptor descriptor) {
-        Boolean elementFound = TextFieldEraser.clearField(descriptor);
-        return elementFound;
+        return TextFieldEraser.clearField(descriptor);
     }
 }
