@@ -87,43 +87,43 @@ public class UiSelectorParser {
         String text = descriptor.getText();
 
         if (checked != null) {
-            selector.checked(checked);
+            selector = selector.checked(checked);
         }
         if (className != null) {
-            selector.className(className);
+            selector = selector.className(className);
         }
         if (clickable != null) {
-            selector.clickable(clickable);
+            selector = selector.clickable(clickable);
         }
         if (description != null) {
-            selector.description(description);
+            selector = selector.description(description);
         }
         if (enabled != null) {
-            selector.enabled(enabled);
+            selector = selector.enabled(enabled);
         }
         if (focusable != null) {
-            selector.focused(focusable);
+            selector = selector.focused(focusable);
         }
         if (focused != null) {
-            selector.focused(focused);
+            selector = selector.focused(focused);
         }
         if (index != null) {
-            selector.index(index);
+            selector = selector.index(index);
         }
         if (longClickable != null) {
-            selector.longClickable(longClickable);
+            selector = selector.longClickable(longClickable);
         }
         if (packageName != null) {
-            selector.packageName(packageName);
+            selector = selector.packageName(packageName);
         }
         if (scrollable != null) {
-            selector.scrollable(scrollable);
+            selector = selector.scrollable(scrollable);
         }
         if (selected != null) {
-            selector.selected(selected);
+            selector = selector.selected(selected);
         }
         if (text != null) {
-            selector.text(text);
+            selector = selector.text(text);
         }
         return selector;
     }
