@@ -1,6 +1,7 @@
 package com.musala.atmosphere.uiautomator;
 
 import com.musala.atmosphere.uiautomator.socket.ConnectionInitializer;
+import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 
 /**
@@ -17,7 +18,12 @@ public enum ChildProcessAction {
     /**
      * Indicates that a field should be cleared by this process.
      */
-    CLEAR_FIELD(1, TextFieldEraser.class);
+    CLEAR_FIELD(1, TextFieldEraser.class),
+
+    /**
+     * Indicates that an element should be swiped.
+     */
+    SWIPE_ELEMENT(2, ElementSwiper.class);
 
     private static final ChildProcessAction DEFAULT_ACTION = REQUEST_SERVER;
 

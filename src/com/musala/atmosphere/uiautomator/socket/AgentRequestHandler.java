@@ -5,9 +5,11 @@ import java.util.List;
 import com.musala.atmosphere.commons.ad.Request;
 import com.musala.atmosphere.commons.ad.RequestHandler;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorBridgeRequest;
+import com.musala.atmosphere.commons.beans.SwipeDirection;
 import com.musala.atmosphere.commons.gesture.Timeline;
 import com.musala.atmosphere.commons.ui.UiElementDescriptor;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayer;
+import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 
 /**
@@ -36,9 +38,16 @@ public class AgentRequestHandler implements RequestHandler<UIAutomatorBridgeRequ
                 List<Timeline> pointerTimelines = (List<Timeline>) arguments[0];
                 response = playGesture(pointerTimelines);
                 break;
+
             case CLEAR_FIELD:
                 UiElementDescriptor descriptor = (UiElementDescriptor) arguments[0];
                 response = clearField(descriptor);
+                break;
+
+            case ELEMENT_SWIPE:
+                UiElementDescriptor descriptorSwipe = (UiElementDescriptor) arguments[0];
+                SwipeDirection direction = (SwipeDirection) arguments[1];
+                response = swipeElement(descriptorSwipe, direction);
                 break;
 
             default:
@@ -74,6 +83,15 @@ public class AgentRequestHandler implements RequestHandler<UIAutomatorBridgeRequ
         }
 
         return UIAutomatorBridgeRequest.ANY_RESPONSE;
+    }
+
+    /**
+     * Swipes an element in a given direction.
+     * 
+     * @return an empty response, since we are not requesting any information.
+     */
+    private Object swipeElement(UiElementDescriptor descriptor, SwipeDirection direction) {
+        return ElementSwiper.swipe(descriptor, direction);
     }
 
     /**
