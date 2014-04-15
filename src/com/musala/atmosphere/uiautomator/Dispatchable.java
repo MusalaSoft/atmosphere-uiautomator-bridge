@@ -1,6 +1,5 @@
 package com.musala.atmosphere.uiautomator;
 
-import android.os.Bundle;
 
 /**
  * Interface, defining the general overlay of dispatachable child process action handler classes.
@@ -9,5 +8,5 @@ import android.os.Bundle;
  * 
  */
 public interface Dispatchable {
-    void handle(Bundle params) throws Exception;
+    void handle(Object[] args) throws Exception;
 }

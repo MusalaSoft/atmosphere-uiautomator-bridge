@@ -1,12 +1,5 @@
 package com.musala.atmosphere.uiautomator.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import com.android.uiautomator.core.UiSelector;
 import com.musala.atmosphere.commons.ui.UiElementDescriptor;
 
@@ -18,59 +11,8 @@ import com.musala.atmosphere.commons.ui.UiElementDescriptor;
  * 
  */
 public class UiSelectorParser {
-    /**
-     * Encodes a {@link UiElementDescriptor} instance in Base64 for further decoding using the
-     * {@link #getSelectorFromRepresentation(String)} method.
-     * 
-     * @param descriptor
-     *        - the {@link UiElementDescriptor} instance to be encoded.
-     * @return the encoded descriptor <b>or null if encoding fails</b>.
-     */
-    public static String getStringRepresentation(UiElementDescriptor descriptor) {
-        try {
-            return toString(descriptor);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
-    /**
-     * Returns a {@link UiSelector} instance based on an encoded in Base64 {@link UiElementDescriptor} instance.
-     * 
-     * @param descriptor
-     *        - the encoded {@link UiElementDescriptor}.
-     * @return the {@link UiSelector} instance, based on the descriptor <b>or null if decoding fails</b>.
-     */
-    public static UiSelector getSelectorFromRepresentation(String descriptor) {
-        UiElementDescriptor descriptorReady = null;
-        try {
-            descriptorReady = (UiElementDescriptor) fromString(descriptor);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return convertSelector(descriptorReady);
-    }
-
-    private static String toString(Serializable obj) throws IOException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ObjectOutputStream objectStream = new ObjectOutputStream(output);
-        objectStream.writeObject(obj);
-        objectStream.close();
-        byte[] result = output.toByteArray();
-        return Base64Service.encode(result);
-    }
-
-    private static Object fromString(String representation) throws IOException, ClassNotFoundException {
-        byte[] data = Base64Service.decode(representation);
-        ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(data));
-        Object result = inputStream.readObject();
-        inputStream.close();
-        return result;
-    }
-
-    private static UiSelector convertSelector(UiElementDescriptor descriptor) {
+    public static UiSelector convertSelector(UiElementDescriptor descriptor) {
         UiSelector selector = new UiSelector();
         Boolean checked = descriptor.isChecked();
         String className = descriptor.getClassName();
