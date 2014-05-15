@@ -5,6 +5,7 @@ import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
+import com.musala.atmosphere.uiautomator.waitforexists.WaitForUIElementListener;
 
 /**
  * Enumerates the actions that a UIAutomator process should do.
@@ -23,6 +24,10 @@ public enum UIAutomatorProcessAction {
      * Indicates that a field should be cleared by this process.
      */
     CLEAR_FIELD(UIAutomatorRequest.CLEAR_FIELD, TextFieldEraser.class),
+    /**
+     * Indicates that the device should wait for an element to appear on the screen.
+     */
+    WAIT_FOR_EXISTS(UIAutomatorRequest.WAIT_FOR_EXISTS, WaitForUIElementListener.class),
 
     /**
      * Indicates that an element should be swiped.
