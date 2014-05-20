@@ -89,4 +89,13 @@
     <!-- version-tag: VERSION_TAG -->
     <import file="${sdk.dir}/tools/ant/uibuild.xml" />
 
+	<!--
+		Properties used by the common build to update dependencies.
+	-->
+	<property name="dependency.projects" value="AtmosphereADCommons,AtmosphereCommons"/>
+	<property name="lib.dir" value="libs"/>
+
+	<import file="../common-build.xml" />
+
+	<target depends="CommonBuild.update-libs, android_rules.build" name="build"/>
 </project>

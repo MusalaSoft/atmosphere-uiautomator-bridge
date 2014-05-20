@@ -4,6 +4,7 @@
     <!-- Include external libs -->
     <property name="jar.libs.dir" value="libs" />
     <property name="jar.libs.absolute.dir" location="${jar.libs.dir}" />
+
     <path id="classpath">
         <fileset dir="${jar.libs.absolute.dir}">
             <include name="**/*.jar"/>
