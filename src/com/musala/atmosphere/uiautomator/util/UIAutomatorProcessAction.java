@@ -5,6 +5,8 @@ import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
+import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
+import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewInnerViewScroller;
 import com.musala.atmosphere.uiautomator.waitforexists.WaitForUIElementListener;
 
 /**
@@ -32,7 +34,17 @@ public enum UIAutomatorProcessAction {
     /**
      * Indicates that an element should be swiped.
      */
-    SWIPE_ELEMENT(UIAutomatorRequest.ELEMENT_SWIPE, ElementSwiper.class);
+    SWIPE_ELEMENT(UIAutomatorRequest.ELEMENT_SWIPE, ElementSwiper.class),
+
+    /**
+     * Indicates that and an element should be scrolled in some direction.
+     */
+    SCROLL_TO_DIRECTION(UIAutomatorRequest.SCROLL_TO_DIRECTION, ScrollableViewDirectionScroller.class),
+
+    /**
+     * Indicates that should be scrolled to an inner UI element or a text contained in a view.
+     */
+    SCROLL_INTO_VIEW(UIAutomatorRequest.SCROLL_INTO_VIEW, ScrollableViewInnerViewScroller.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
