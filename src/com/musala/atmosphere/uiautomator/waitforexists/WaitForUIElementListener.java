@@ -30,7 +30,7 @@ public class WaitForUIElementListener implements Dispatchable {
     public void handle(Object[] args) throws UiObjectNotFoundException {
         UiElementDescriptor descriptor = (UiElementDescriptor) args[0];
 
-        Long timeout = (Long) args[1];
+        Integer timeout = (Integer) args[1];
 
         UiSelector selector = UiSelectorParser.convertSelector(descriptor);
         UiObject object = new UiObject(selector);
