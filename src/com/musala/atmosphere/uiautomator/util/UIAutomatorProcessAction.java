@@ -7,7 +7,8 @@ import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewInnerViewScroller;
-import com.musala.atmosphere.uiautomator.waitforexists.WaitForUIElementListener;
+import com.musala.atmosphere.uiautomator.wait.WaitForUIElementListener;
+import com.musala.atmosphere.uiautomator.wait.WaitForWindowUpdateListener;
 
 /**
  * Enumerates the actions that a UIAutomator process should do.
@@ -30,7 +31,10 @@ public enum UIAutomatorProcessAction {
      * Indicates that the device should wait for an element to appear on the screen.
      */
     WAIT_FOR_EXISTS(UIAutomatorRequest.WAIT_FOR_EXISTS, WaitForUIElementListener.class),
-
+    /**
+     * Indicates that the device should respond when a window update has occurred.
+     */
+    WAIT_FOR_WINDOW_UPDATE(UIAutomatorRequest.WAIT_FOR_WINDOW_UPDATE, WaitForWindowUpdateListener.class),
     /**
      * Indicates that an element should be swiped.
      */

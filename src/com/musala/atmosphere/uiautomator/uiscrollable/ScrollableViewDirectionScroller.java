@@ -8,7 +8,7 @@ import android.util.Log;
 import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.musala.atmosphere.commons.ScrollDirection;
-import com.musala.atmosphere.commons.ad.FileObjectTransferManagerConstants;
+import com.musala.atmosphere.commons.ad.FileTransferConstants;
 import com.musala.atmosphere.commons.ad.util.FileObjectTransferManager;
 import com.musala.atmosphere.commons.ui.UiElementDescriptor;
 import com.musala.atmosphere.uiautomator.Dispatchable;
@@ -22,8 +22,7 @@ import com.musala.atmosphere.uiautomator.util.UiSelectorParser;
  */
 public class ScrollableViewDirectionScroller implements Dispatchable {
 
-    private static final String PATH_TO_FILE = FileObjectTransferManagerConstants.DEVICE_TMP_PATH + File.separator
-            + FileObjectTransferManagerConstants.RESPONSE_FILE_NAME;
+    private static final String PATH_TO_FILE = FileTransferConstants.ONDEVICE_RESPONSE_PATH;
 
     private FileObjectTransferManager fileObjectTransferManager = new FileObjectTransferManager();
 

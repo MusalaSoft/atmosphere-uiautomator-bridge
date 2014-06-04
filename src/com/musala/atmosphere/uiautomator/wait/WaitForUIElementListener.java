@@ -1,4 +1,4 @@
-package com.musala.atmosphere.uiautomator.waitforexists;
+package com.musala.atmosphere.uiautomator.wait;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import android.util.Log;
 import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
-import com.musala.atmosphere.commons.ad.FileObjectTransferManagerConstants;
+import com.musala.atmosphere.commons.ad.FileTransferConstants;
 import com.musala.atmosphere.commons.ad.util.FileObjectTransferManager;
 import com.musala.atmosphere.commons.ui.UiElementDescriptor;
 import com.musala.atmosphere.uiautomator.Dispatchable;
@@ -21,8 +21,7 @@ import com.musala.atmosphere.uiautomator.util.UiSelectorParser;
  */
 
 public class WaitForUIElementListener implements Dispatchable {
-    private static final String PATH_TO_FILE = FileObjectTransferManagerConstants.DEVICE_TMP_PATH + "/"
-            + FileObjectTransferManagerConstants.RESPONSE_FILE_NAME;
+    private static final String TAG = WaitForUIElementListener.class.toString();
 
     private FileObjectTransferManager fileObjectTransferManager = new FileObjectTransferManager();
 
@@ -36,11 +35,10 @@ public class WaitForUIElementListener implements Dispatchable {
         UiObject object = new UiObject(selector);
         Boolean response = object.waitForExists(timeout);
         try {
-            fileObjectTransferManager.writeObjectToFile(response, PATH_TO_FILE);
+            fileObjectTransferManager.writeObjectToFile(response, FileTransferConstants.ONDEVICE_RESPONSE_PATH);
         } catch (IOException e) {
-            String tag = WaitForUIElementListener.class.toString();
-            String msg = "Failed to push the response in a file";
-            Log.e(tag, msg, e);
+            String errorMessage = "Failed to push the response in a file";
+            Log.e(TAG, errorMessage, e);
         }
     }
 }
