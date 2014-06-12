@@ -9,6 +9,7 @@ import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScr
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewInnerViewScroller;
 import com.musala.atmosphere.uiautomator.wait.WaitForUIElementListener;
 import com.musala.atmosphere.uiautomator.wait.WaitForWindowUpdateListener;
+import com.musala.atmosphere.uiautomator.wait.WaitUntilUIElementGoneListener;
 
 /**
  * Enumerates the actions that a UIAutomator process should do.
@@ -31,6 +32,10 @@ public enum UIAutomatorProcessAction {
      * Indicates that the device should wait for an element to appear on the screen.
      */
     WAIT_FOR_EXISTS(UIAutomatorRequest.WAIT_FOR_EXISTS, WaitForUIElementListener.class),
+    /**
+     * Indicates that the device should wait for an element to disappear on the screen.
+     */
+    WAIT_UNTIL_GONE(UIAutomatorRequest.WAIT_UNTIL_GONE, WaitUntilUIElementGoneListener.class),
     /**
      * Indicates that the device should respond when a window update has occurred.
      */
