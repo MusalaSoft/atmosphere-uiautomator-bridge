@@ -1,6 +1,5 @@
 package com.musala.atmosphere.uiautomator;
 
-
 /**
  * Interface, defining the general overlay of dispatachable child process action handler classes.
  * 
