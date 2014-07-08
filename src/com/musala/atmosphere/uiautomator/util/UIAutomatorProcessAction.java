@@ -3,10 +3,10 @@ package com.musala.atmosphere.uiautomator.util;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
+import com.musala.atmosphere.uiautomator.notificationbar.NotificationBarOpener;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
-import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewInnerViewScroller;
 import com.musala.atmosphere.uiautomator.wait.WaitForUIElementListener;
 import com.musala.atmosphere.uiautomator.wait.WaitForWindowUpdateListener;
 import com.musala.atmosphere.uiautomator.wait.WaitUntilUIElementGoneListener;
@@ -51,9 +51,9 @@ public enum UIAutomatorProcessAction {
     SCROLL_TO_DIRECTION(UIAutomatorRequest.SCROLL_TO_DIRECTION, ScrollableViewDirectionScroller.class),
 
     /**
-     * Indicates that should be scrolled to an inner UI element or a text contained in a view.
+     * Indicates that the notification bar should be opened on the device.
      */
-    SCROLL_INTO_VIEW(UIAutomatorRequest.SCROLL_INTO_VIEW, ScrollableViewInnerViewScroller.class);
+    OPEN_NOTIFICATION_BAR(UIAutomatorRequest.OPEN_NOTIFICATION_BAR, NotificationBarOpener.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
