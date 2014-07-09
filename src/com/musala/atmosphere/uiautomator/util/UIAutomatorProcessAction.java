@@ -4,6 +4,7 @@ import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.notificationbar.NotificationBarOpener;
+import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -53,7 +54,12 @@ public enum UIAutomatorProcessAction {
     /**
      * Indicates that the notification bar should be opened on the device.
      */
-    OPEN_NOTIFICATION_BAR(UIAutomatorRequest.OPEN_NOTIFICATION_BAR, NotificationBarOpener.class);
+    OPEN_NOTIFICATION_BAR(UIAutomatorRequest.OPEN_NOTIFICATION_BAR, NotificationBarOpener.class),
+
+    /**
+     * Indicates that the quick settings should be opened on the device.
+     */
+    OPEN_QUICK_SETTINGS(UIAutomatorRequest.OPEN_QUICK_SETTINGS, QuickSettingsOpener.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
