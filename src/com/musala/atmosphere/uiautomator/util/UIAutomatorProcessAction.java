@@ -5,6 +5,7 @@ import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.notificationbar.NotificationBarOpener;
 import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
+import com.musala.atmosphere.uiautomator.pickerhandler.TimePickerHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -59,7 +60,12 @@ public enum UIAutomatorProcessAction {
     /**
      * Indicates that the quick settings should be opened on the device.
      */
-    OPEN_QUICK_SETTINGS(UIAutomatorRequest.OPEN_QUICK_SETTINGS, QuickSettingsOpener.class);
+    OPEN_QUICK_SETTINGS(UIAutomatorRequest.OPEN_QUICK_SETTINGS, QuickSettingsOpener.class),
+    /**
+     * Indicates an interaction with the time picker widget currently on screen.
+     */
+
+    TIME_PICKER_INTERACTION(UIAutomatorRequest.TIME_PICKER_INTERACTION, TimePickerHandler.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
