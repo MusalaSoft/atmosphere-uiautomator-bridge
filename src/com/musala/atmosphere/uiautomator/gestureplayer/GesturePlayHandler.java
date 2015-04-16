@@ -1,19 +1,20 @@
 package com.musala.atmosphere.uiautomator.gestureplayer;
 
-import java.util.List;
-
-import com.musala.atmosphere.commons.gesture.Timeline;
+import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
+import com.musala.atmosphere.commons.gesture.Gesture;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 
+/**
+ * Class that is responsible for executing the passed {@link Gesture gesture} on the device.
+ * 
+ * @author yordan.petrov
+ * 
+ */
 public class GesturePlayHandler implements Dispatchable {
-    /**
-     * Plays the passed list of {@link Timeline Timeline} objects.
-     * 
-     * @return an empty response, since we are not requesting any information.
-     */
+
     @Override
-    public void handle(Object[] args) throws Exception {
-        List<Timeline> pointerTimelines = (List<Timeline>) args[0];
+    public Object handle(Object[] args) throws Exception {
+        Gesture pointerTimelines = (Gesture) args[0];
         GesturePlayer gesturePlayer = new GesturePlayer();
         gesturePlayer.insertTimelineList(pointerTimelines);
 
@@ -22,5 +23,7 @@ public class GesturePlayHandler implements Dispatchable {
         while (gesturePlayer.hasMoreToAct()) {
             gesturePlayer.act();
         }
+
+        return UIAutomatorRequest.VOID_RESPONSE;
     }
 }

@@ -7,5 +7,5 @@ package com.musala.atmosphere.uiautomator;
  * 
  */
 public interface Dispatchable {
-    void handle(Object[] args) throws Exception;
+    Object handle(Object[] args) throws Exception;
 }

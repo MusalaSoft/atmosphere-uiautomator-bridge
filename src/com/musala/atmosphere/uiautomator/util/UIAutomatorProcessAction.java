@@ -1,12 +1,15 @@
 package com.musala.atmosphere.uiautomator.util;
 
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
+import com.musala.atmosphere.uiautomator.ActionDispatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.notificationbar.NotificationBarOpener;
 import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
+import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
+import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
 import com.musala.atmosphere.uiautomator.wait.WaitForUIElementListener;
 import com.musala.atmosphere.uiautomator.wait.WaitForWindowUpdateListener;
@@ -21,26 +24,32 @@ import com.musala.atmosphere.uiautomator.wait.WaitUntilUIElementGoneListener;
 public enum UIAutomatorProcessAction {
     // TODO implement uiautomator component info handler
     PRINT_INFO(null, null),
+
     /**
      * Indicates that a gesture execution should be done.
      */
     PLAY_GESTURE(UIAutomatorRequest.PLAY_GESTURE, GesturePlayHandler.class),
+
     /**
      * Indicates that a field should be cleared by this process.
      */
     CLEAR_FIELD(UIAutomatorRequest.CLEAR_FIELD, TextFieldEraser.class),
+
     /**
      * Indicates that the device should wait for an element to appear on the screen.
      */
     WAIT_FOR_EXISTS(UIAutomatorRequest.WAIT_FOR_EXISTS, WaitForUIElementListener.class),
+
     /**
      * Indicates that the device should wait for an element to disappear on the screen.
      */
     WAIT_UNTIL_GONE(UIAutomatorRequest.WAIT_UNTIL_GONE, WaitUntilUIElementGoneListener.class),
+
     /**
      * Indicates that the device should respond when a window update has occurred.
      */
     WAIT_FOR_WINDOW_UPDATE(UIAutomatorRequest.WAIT_FOR_WINDOW_UPDATE, WaitForWindowUpdateListener.class),
+
     /**
      * Indicates that an element should be swiped.
      */
@@ -59,7 +68,22 @@ public enum UIAutomatorProcessAction {
     /**
      * Indicates that the quick settings should be opened on the device.
      */
-    OPEN_QUICK_SETTINGS(UIAutomatorRequest.OPEN_QUICK_SETTINGS, QuickSettingsOpener.class);
+    OPEN_QUICK_SETTINGS(UIAutomatorRequest.OPEN_QUICK_SETTINGS, QuickSettingsOpener.class),
+
+    /**
+     * Indicates that this is the automator process.
+     */
+    VALIDATION(UIAutomatorRequest.VALIDATION, PingHandler.class),
+
+    /**
+     * Indicates that the screen should be dumped to a XML file.
+     */
+    GET_UI_DUMP_XML(UIAutomatorRequest.GET_UI_DUMP_XML, UiXmlDumper.class),
+
+    /**
+     * Indicates that the UIautomator process should be stopped.
+     */
+    STOP(UIAutomatorRequest.STOP, ActionDispatcher.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 

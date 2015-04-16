@@ -1,55 +1,86 @@
 package com.musala.atmosphere.uiautomator;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.musala.atmosphere.commons.ad.Request;
-import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorConstants;
+import com.musala.atmosphere.commons.ad.RequestHandler;
+import com.musala.atmosphere.commons.ad.service.ConnectionConstants;
+import com.musala.atmosphere.commons.ad.socket.OnDeviceSocketServer;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
 
 /**
- * Class responsible for running the appropriate handler. Main entry point.
+ * UI automator main entry point. Initializes the socket server and request handlers.
  * 
  * @author georgi.gaydarov
  * 
  */
-public class ActionDispatcher extends UiAutomatorTestCase {
-    public void testRun() throws ClassNotFoundException, IOException {
+public class ActionDispatcher extends UiAutomatorTestCase implements RequestHandler<UIAutomatorRequest>, Dispatchable {
+    private static final String CLASS_TAG = ActionDispatcher.class.getSimpleName();
 
-        Log.i("UIAutomator Dispatcher", "Starting...");
-        Bundle params = getParams();
+    private static final long SLEEP_TIEMOUT = 1000;
 
-        if (!params.containsKey(UIAutomatorConstants.PARAM_REQUEST)) {
-            // TODO some error here. To be implemented when response handling is implemented in the Agent component
-            // communicator class
+    private static volatile boolean isRunning;
+
+    private static OnDeviceSocketServer<UIAutomatorRequest> socketServer;
+
+    /**
+     * Main entry point being called when the UI automator process is started.
+     */
+    public void testRun() {
+        try {
+            socketServer = new OnDeviceSocketServer<UIAutomatorRequest>(this, ConnectionConstants.UI_AUTOMATOR_PORT);
+            socketServer.start();
+
+            isRunning = true;
+            Log.i(CLASS_TAG, "Service socket server started successfully.");
+        } catch (IOException e) {
+            Log.e(CLASS_TAG, "Could not start ATMOSPHERE socket server", e);
         }
 
-        String requestFile = params.getString(UIAutomatorConstants.PARAM_REQUEST);
-        InputStream buffer = new BufferedInputStream(new FileInputStream(requestFile));
-        ObjectInput input = new ObjectInputStream(buffer);
-        Request<UIAutomatorRequest> request = (Request<UIAutomatorRequest>) input.readObject();
-        input.close();
+        while (isRunning) {
+            try {
+                Thread.sleep(SLEEP_TIEMOUT);
+            } catch (InterruptedException e) {
+                // Nothing to do here
+            }
+        }
+    }
 
+    @Override
+    public Object handle(Object[] args) {
+        isRunning = false;
+
+        if (socketServer != null) {
+            synchronized (socketServer) {
+                if (socketServer != null) {
+                    socketServer.terminate();
+                }
+            }
+        }
+
+        return UIAutomatorRequest.VOID_RESPONSE;
+    }
+
+    @Override
+    public Object handle(Request<UIAutomatorRequest> request) {
         UIAutomatorRequest requestType = request.getType();
         Object[] requestArguments = request.getArguments();
 
         UIAutomatorProcessAction action = UIAutomatorProcessAction.getByRequest(requestType);
         Class<? extends Dispatchable> handlerClass = action.getHandler();
-        Log.i("UIAutomator Dispatcher", "Passing job to " + handlerClass.toString());
+        Log.i(CLASS_TAG, "Passing job to " + handlerClass.toString());
+
         try {
             Dispatchable handler = handlerClass.newInstance();
-            handler.handle(requestArguments);
+            return handler.handle(requestArguments);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(CLASS_TAG, "Eror while handling request: ", e);
         }
+
+        return UIAutomatorRequest.VOID_RESPONSE;
     }
 }

@@ -1,33 +1,22 @@
 package com.musala.atmosphere.uiautomator.uiscrollable;
 
-import java.io.File;
-import java.io.IOException;
-
-import android.util.Log;
-
 import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.musala.atmosphere.commons.ScrollDirection;
-import com.musala.atmosphere.commons.ad.FileTransferConstants;
-import com.musala.atmosphere.commons.ad.util.FileObjectTransferManager;
 import com.musala.atmosphere.commons.ui.UiElementDescriptor;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.util.UiSelectorParser;
 
 /**
- * Class that handles the requested scrolling action in some of the different directions.
+ * Class that handles the requested scrolling action in one of the different directions.
  * 
  * @author filareta.yordanova
  * 
  */
 public class ScrollableViewDirectionScroller implements Dispatchable {
 
-    private static final String PATH_TO_FILE = FileTransferConstants.ONDEVICE_RESPONSE_PATH;
-
-    private FileObjectTransferManager fileObjectTransferManager = new FileObjectTransferManager();
-
     @Override
-    public void handle(Object[] args) throws Exception {
+    public Object handle(Object[] args) throws Exception {
         ScrollDirection scrollDirection = (ScrollDirection) args[0];
 
         UiElementDescriptor descriptor = (UiElementDescriptor) args[1];
@@ -86,13 +75,6 @@ public class ScrollableViewDirectionScroller implements Dispatchable {
             }
         }
 
-        try {
-            fileObjectTransferManager.writeObjectToFile(response, PATH_TO_FILE);
-        } catch (IOException e) {
-            String tag = ScrollableViewDirectionScroller.class.toString();
-            String message = "Failed to push the response in a file";
-            Log.e(tag, message, e);
-        }
-
+        return response;
     }
 }
