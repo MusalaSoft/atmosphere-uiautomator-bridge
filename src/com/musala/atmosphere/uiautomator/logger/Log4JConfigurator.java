@@ -1,10 +1,7 @@
 package com.musala.atmosphere.uiautomator.logger;
 
-import java.io.File;
-
 import org.apache.log4j.Level;
 
-import android.os.Environment;
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
@@ -20,7 +17,7 @@ public class Log4JConfigurator {
 
     private static final String LOG_FILE = "automator.log";
 
-    private static final String LOG_FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + LOG_FILE;
+    private static final String LOG_FILE_PATH = "/data/local/tmp/" + LOG_FILE;
 
     /**
      * Configures log4j to use an Android appender.
