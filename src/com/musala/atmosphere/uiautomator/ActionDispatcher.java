@@ -20,9 +20,6 @@ import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
  * 
  */
 public class ActionDispatcher extends UiAutomatorTestCase implements RequestHandler<UIAutomatorRequest>, Dispatchable {
-    static {
-        Log4JConfigurator.configure();
-    }
 
     private static final Logger LOGGER = Logger.getLogger(ActionDispatcher.class);
 
@@ -36,6 +33,8 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
      * Main entry point being called when the UI automator process is started.
      */
     public void testRun() {
+        Log4JConfigurator.configure();
+
         try {
             socketServer = new OnDeviceSocketServer<UIAutomatorRequest>(this, ConnectionConstants.UI_AUTOMATOR_PORT);
             socketServer.start();
