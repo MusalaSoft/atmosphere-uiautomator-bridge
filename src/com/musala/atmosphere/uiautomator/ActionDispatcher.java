@@ -2,7 +2,7 @@ package com.musala.atmosphere.uiautomator;
 
 import java.io.IOException;
 
-import android.util.Log;
+import org.apache.log4j.Logger;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.musala.atmosphere.commons.ad.Request;
@@ -10,6 +10,7 @@ import com.musala.atmosphere.commons.ad.RequestHandler;
 import com.musala.atmosphere.commons.ad.service.ConnectionConstants;
 import com.musala.atmosphere.commons.ad.socket.OnDeviceSocketServer;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
+import com.musala.atmosphere.uiautomator.logger.Log4JConfigurator;
 import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
 
 /**
@@ -19,7 +20,11 @@ import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
  * 
  */
 public class ActionDispatcher extends UiAutomatorTestCase implements RequestHandler<UIAutomatorRequest>, Dispatchable {
-    private static final String CLASS_TAG = ActionDispatcher.class.getSimpleName();
+    static {
+        Log4JConfigurator.configure();
+    }
+
+    private static final Logger LOGGER = Logger.getLogger(ActionDispatcher.class);
 
     private static final long SLEEP_TIEMOUT = 1000;
 
@@ -36,9 +41,9 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
             socketServer.start();
 
             isRunning = true;
-            Log.i(CLASS_TAG, "Service socket server started successfully.");
+            LOGGER.info("Automator socket server started successfully.");
         } catch (IOException e) {
-            Log.e(CLASS_TAG, "Could not start ATMOSPHERE socket server", e);
+            LOGGER.error("Could not start ATMOSPHERE socket server", e);
         }
 
         while (isRunning) {
@@ -72,13 +77,13 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
 
         UIAutomatorProcessAction action = UIAutomatorProcessAction.getByRequest(requestType);
         Class<? extends Dispatchable> handlerClass = action.getHandler();
-        Log.i(CLASS_TAG, "Passing job to " + handlerClass.toString());
+        LOGGER.info("Passing job to " + handlerClass.toString());
 
         try {
             Dispatchable handler = handlerClass.newInstance();
             return handler.handle(requestArguments);
         } catch (Exception e) {
-            Log.e(CLASS_TAG, "Eror while handling request: ", e);
+            LOGGER.error("Eror while handling request.", e);
         }
 
         return UIAutomatorRequest.VOID_RESPONSE;
