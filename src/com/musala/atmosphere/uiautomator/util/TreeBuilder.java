@@ -23,22 +23,22 @@ public class TreeBuilder {
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return a {@link Node node} with {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
-    private static Node<AccessibilityElement> buildNode(AccessibilityNodeInfo nodeInfo, boolean visibleOnly) {
+    private static Node<AccessibilityElement> buildNode(AccessibilityNodeInfo nodeInfo, int index, boolean visibleOnly) {
         if (nodeInfo == null) {
             return null;
         }
 
-        AccessibilityElement elementData = AccessibilityElementBuilder.build(nodeInfo);
+        AccessibilityElement elementData = AccessibilityElementBuilder.build(nodeInfo, index);
         Node<AccessibilityElement> builtNode = new Node<AccessibilityElement>(elementData);
 
         int childCount = nodeInfo.getChildCount();
-        for (int index = 0; index < childCount; index++) {
+        for (int childIndex = 0; childIndex < childCount; childIndex++) {
             if (visibleOnly && nodeInfo != null && !nodeInfo.isVisibleToUser()) {
                 continue;
             }
 
-            AccessibilityNodeInfo childNodeInfo = nodeInfo.getChild(index);
-            Node<AccessibilityElement> childNode = buildNode(childNodeInfo, visibleOnly);
+            AccessibilityNodeInfo childNodeInfo = nodeInfo.getChild(childIndex);
+            Node<AccessibilityElement> childNode = buildNode(childNodeInfo, childIndex, visibleOnly);
             builtNode.addChild(childNode);
         }
 
@@ -58,7 +58,7 @@ public class TreeBuilder {
      */
 
     public static Tree<AccessibilityElement> buildTree(AccessibilityNodeInfo root, boolean visibleOnly) {
-        Node<AccessibilityElement> rootNode = buildNode(root, visibleOnly);
+        Node<AccessibilityElement> rootNode = buildNode(root, 0, visibleOnly);
         Tree<AccessibilityElement> builtTree = new Tree<AccessibilityElement>(rootNode);
         return builtTree;
     }

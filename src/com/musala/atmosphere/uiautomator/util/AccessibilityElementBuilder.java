@@ -22,12 +22,13 @@ public class AccessibilityElementBuilder {
      *        - the {@link AccessibilityNodeInfo} the {@link AccessibilityElement} is being built on
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
-    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo) {
+    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo, int index) {
         if (nodeInfo == null) {
             return null;
         }
 
         AccessibilityElement element = new AccessibilityElement();
+        element.setIndex(index);
         element.setText(charSeqToString(nodeInfo.getText()));
         element.setClassName(charSeqToString(nodeInfo.getClassName()));
         element.setPackageName(charSeqToString(nodeInfo.getPackageName()));
