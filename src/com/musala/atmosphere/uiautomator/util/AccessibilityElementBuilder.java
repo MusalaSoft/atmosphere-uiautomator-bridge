@@ -1,5 +1,7 @@
 package com.musala.atmosphere.uiautomator.util;
 
+import java.util.Stack;
+
 import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -14,6 +16,7 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
  * 
  */
 public class AccessibilityElementBuilder {
+    private static final String PATH_SEPARATOR = ", ";
 
     /**
      * Builds an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}.
@@ -28,7 +31,36 @@ public class AccessibilityElementBuilder {
         }
 
         AccessibilityElement element = new AccessibilityElement();
-        element.setIndex(index);
+        setCommonProperties(nodeInfo, element, index);
+
+        return element;
+    }
+
+    /**
+     * Builds an {@link AccessibilityElement} based on a given {@link AccessibilityNodeInfo accessibility node
+     * information} and the corresponding path from the root of the hierarchy to this element, represented with
+     * element's indexes.
+     * 
+     * @param nodeInfo
+     *        - the {@link AccessibilityNodeInfo} the {@link AccessibilityElement} is being built on
+     * @param pathIndexes
+     *        - the path from the root of the hierarchy to the element returned from the
+     *        {@link AccessibilityElementBuilder builder}.
+     * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
+     */
+    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo, Stack<Integer> pathIndexes, int index) {
+        if (nodeInfo == null) {
+            return null;
+        }
+
+        AccessibilityElement element = new AccessibilityElement();
+        setCommonProperties(nodeInfo, element, index);
+        element.setPath(getPathRepresentation(pathIndexes));
+
+        return element;
+    }
+
+    private static void setCommonProperties(AccessibilityNodeInfo nodeInfo, AccessibilityElement element, int index) {
         element.setText(charSeqToString(nodeInfo.getText()));
         element.setClassName(charSeqToString(nodeInfo.getClassName()));
         element.setPackageName(charSeqToString(nodeInfo.getPackageName()));
@@ -43,6 +75,7 @@ public class AccessibilityElementBuilder {
         element.setLongClickable(nodeInfo.isLongClickable());
         element.setPassword(nodeInfo.isPassword());
         element.setSelected(nodeInfo.isSelected());
+        element.setIndex(index);
 
         Rect boundsRect = new Rect();
         nodeInfo.getBoundsInScreen(boundsRect);
@@ -52,8 +85,6 @@ public class AccessibilityElementBuilder {
         Bounds bounds = new Bounds(topLeft, bottomRight);
 
         element.setBounds(bounds);
-
-        return element;
     }
 
     /**
@@ -71,5 +102,28 @@ public class AccessibilityElementBuilder {
         final StringBuilder builder = new StringBuilder(charSequence.length());
         builder.append(charSequence);
         return builder.toString();
+    }
+
+    /**
+     * Builds a string representation of the path from the root of the hierarchy to the element returned from the
+     * {@link AccessibilityElementBuilder builder}.
+     * 
+     * @param pathIndexes
+     *        - path from the root of the hierarchy to the element returned from the {@link AccessibilityElementBuilder
+     *        builder}, containing elements indexes
+     * @return string representation of the path
+     */
+    private static String getPathRepresentation(Stack<Integer> pathIndexes) {
+        StringBuilder pathRepresentation = new StringBuilder();
+
+        if (!pathIndexes.isEmpty()) {
+            pathRepresentation.append(pathIndexes.pop());
+        }
+
+        while (!pathIndexes.isEmpty()) {
+            pathRepresentation.append(PATH_SEPARATOR).append(pathIndexes.pop());
+        }
+
+        return pathRepresentation.toString();
     }
 }
