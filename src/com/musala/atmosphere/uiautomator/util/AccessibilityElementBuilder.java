@@ -23,6 +23,8 @@ public class AccessibilityElementBuilder {
      * 
      * @param nodeInfo
      *        - the {@link AccessibilityNodeInfo} the {@link AccessibilityElement} is being built on
+     * @param index
+     *        - index of the node
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
     public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo, int index) {

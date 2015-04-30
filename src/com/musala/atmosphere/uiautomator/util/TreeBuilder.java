@@ -19,13 +19,19 @@ public class TreeBuilder {
      * 
      * @param nodeInfo
      *        - the {@link AccessibilityNodeInfo} on which the {@link Node node} is being built
+     * @param index
+     *        - index of the node
      * @param visibleOnly
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return a {@link Node node} with {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
     private static Node<AccessibilityElement> buildNode(AccessibilityNodeInfo nodeInfo, int index, boolean visibleOnly) {
         if (nodeInfo == null) {
-            return null;
+            return new Node<AccessibilityElement>(null);
+        }
+
+        if (visibleOnly && !nodeInfo.isVisibleToUser()) {
+            return new Node<AccessibilityElement>(null);
         }
 
         AccessibilityElement elementData = AccessibilityElementBuilder.build(nodeInfo, index);
@@ -33,11 +39,8 @@ public class TreeBuilder {
 
         int childCount = nodeInfo.getChildCount();
         for (int childIndex = 0; childIndex < childCount; childIndex++) {
-            if (visibleOnly && nodeInfo != null && !nodeInfo.isVisibleToUser()) {
-                continue;
-            }
-
             AccessibilityNodeInfo childNodeInfo = nodeInfo.getChild(childIndex);
+
             Node<AccessibilityElement> childNode = buildNode(childNodeInfo, childIndex, visibleOnly);
             builtNode.addChild(childNode);
         }
