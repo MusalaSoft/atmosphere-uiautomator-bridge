@@ -48,16 +48,21 @@ public class AccessibilityElementBuilder {
      * @param pathIndexes
      *        - the path from the root of the hierarchy to the element returned from the
      *        {@link AccessibilityElementBuilder builder}.
+     * @param pathToLocalRoot
+     *        - path from the absolute root to the local root of the hierarchy
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
-    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo, Stack<Integer> pathIndexes, int index) {
+    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo,
+                                             Stack<Integer> pathIndexes,
+                                             String pathToLocalRoot,
+                                             int index) {
         if (nodeInfo == null) {
             return null;
         }
 
         AccessibilityElement element = new AccessibilityElement();
         setCommonProperties(nodeInfo, element, index);
-        element.setPath(getPathRepresentation(pathIndexes));
+        element.setPath(getPathRepresentation(pathToLocalRoot, pathIndexes));
 
         return element;
     }
@@ -110,17 +115,15 @@ public class AccessibilityElementBuilder {
      * Builds a string representation of the path from the root of the hierarchy to the element returned from the
      * {@link AccessibilityElementBuilder builder}.
      * 
+     * @param pathToLocalRoot
+     *        - path from the absolute root to the local root of the hierarchy
      * @param pathIndexes
      *        - path from the root of the hierarchy to the element returned from the {@link AccessibilityElementBuilder
      *        builder}, containing elements indexes
      * @return string representation of the path
      */
-    private static String getPathRepresentation(Stack<Integer> pathIndexes) {
-        StringBuilder pathRepresentation = new StringBuilder();
-
-        if (!pathIndexes.isEmpty()) {
-            pathRepresentation.append(pathIndexes.pop());
-        }
+    private static String getPathRepresentation(String pathToLocalRoot, Stack<Integer> pathIndexes) {
+        StringBuilder pathRepresentation = new StringBuilder(pathToLocalRoot);
 
         while (!pathIndexes.isEmpty()) {
             pathRepresentation.append(PATH_SEPARATOR).append(pathIndexes.pop());
