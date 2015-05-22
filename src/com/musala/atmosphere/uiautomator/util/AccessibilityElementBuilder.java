@@ -16,7 +16,7 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
  * 
  */
 public class AccessibilityElementBuilder {
-    private static final String PATH_SEPARATOR = ", ";
+    static final String PATH_SEPARATOR = ", ";
 
     /**
      * Builds an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}.
