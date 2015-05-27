@@ -16,10 +16,8 @@ import org.junit.Test;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.musala.atmosphere.commons.ui.selector.CssAttribute;
-import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 
 /**
  * 
@@ -35,14 +33,12 @@ public class AccessibilityElementExistenceTest {
 
     private static AccessibilityNodeInfo[] mockedAccessibilityNodes;
 
-    private static UiElementSelectorMatcher mockedMatcher;
-
-    private UiElementSelector selector;
+    private static UiElementPropertiesContainerMatcher mockedMatcher;
 
     @BeforeClass
     public static void setUp() {
         mockedAccessibilityNodes = new AccessibilityNodeInfo[6];
-        mockedMatcher = mock(UiElementSelectorMatcher.class);
+        mockedMatcher = mock(UiElementPropertiesContainerMatcher.class);
 
         mockedNodeInfoRoot = mock(AccessibilityNodeInfo.class);
 
@@ -111,131 +107,80 @@ public class AccessibilityElementExistenceTest {
     }
 
     @Test
-    public void testWhenSelectorAndPathMatch() {
-        String className = "ImageView";
-        boolean isFocusable = true;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
-
+    public void testWhenPropertiesAndPathMatch() {
         Integer[] path = {2, 1};
         AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(isFocusable);
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-
-        AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
-        boolean visibleOnly = isFocusable;
-        assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
-                     mockedAccessibilityNodes[5],
-                     traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
-    }
-
-    @Test
-    public void testWhenSelectorMissmatches() {
-        String className = "ImageView";
-        boolean isFocusable = false;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedAccessibilityNodes[5]))).thenReturn(false);
-
-        Integer[] path = {2, 1};
-        AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(!isFocusable);
-        element.setPath(joinPathIndexes(Arrays.asList(path)));
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE,
-                   traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
+        assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
+                     mockedAccessibilityNodes[5],
+                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+    }
+
+    @Test
+    public void testWhenPropertiesMissmatch() {
+        Integer[] path = {2, 1};
+        AccessibilityElement element = new AccessibilityElement();
+        element.setPath(joinPathIndexes(Arrays.asList(path)));
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(false);
+
+        AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
+        boolean visibleOnly = true;
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
     }
 
     @Test
     public void testWhenPathDoesNotExist() {
-        String className = "ImageView";
-        boolean isFocusable = true;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
-
         Integer[] path = {2, 1, 2};
         AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(isFocusable);
         element.setPath(joinPathIndexes(Arrays.asList(path)));
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE,
-                   traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
     }
 
     @Test
     public void testWhenRootMatches() {
-        String className = "RelativeLayout";
-        boolean isFocusable = true;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedNodeInfoRoot))).thenReturn(true);
-
         AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(isFocusable);
         element.setPath(joinPathIndexes(new ArrayList<Integer>()));
+        when(mockedMatcher.match(eq(element), eq(mockedNodeInfoRoot))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
                      mockedNodeInfoRoot,
-                     traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
+                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
     }
 
     @Test
     public void testWhenNotVisbleElementMatches() {
-        String className = "ImageView";
-        boolean isFocusable = true;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
-
         Integer[] path = {0, 0};
         AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(isFocusable);
         element.setPath(joinPathIndexes(Arrays.asList(path)));
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE,
-                   traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
     }
 
     @Test
     public void testWhenNonVisibleElementAreTraversed() {
-        String className = "ImageView";
-        boolean isFocusable = true;
-        selector = new UiElementSelector();
-        selector.addSelectionAttribute(CssAttribute.CLASS_NAME, className);
-        selector.addSelectionAttribute(CssAttribute.FOCUSABLE, isFocusable);
-        when(mockedMatcher.match(eq(selector), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
-
         Integer[] path = {0, 0};
         AccessibilityElement element = new AccessibilityElement();
-        element.setClassName(className);
-        element.setFocusable(isFocusable);
         element.setPath(joinPathIndexes(Arrays.asList(path)));
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = false;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
                      mockedAccessibilityNodes[3],
-                     traverser.isElementExisting(element, mockedMatcher, selector, visibleOnly));
+                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
     }
 
     private String joinPathIndexes(List<Integer> pathIndexes) {

@@ -15,6 +15,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.musala.atmosphere.commons.ui.selector.CssAttribute;
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 
 /**
@@ -168,60 +169,53 @@ public class AccessibilityNodeTraverser {
      * @param element
      *        - {@link AccessibilityElement accessibility element} for which a match will be searched in the
      *        {@link AccessibilityNodeInfo nodes} hierarchy
-     * @param matcher
-     *        - defines the strategy for matching the given {@link UiElementSelector selector} and node from the
-     *        hierarchy
-     * @param selector
-     *        - contains the properties which accessibility nodes should match
+     * @param propertiesMatcher
+     *        - defines the strategy for matching the given {@link AccessibilityElement element} and node from the
+     *        accessibility nodes hierarchy
      * @param visibleOnly
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return {@link AccessibilityNodeInfo accessibility node} that matches the characteristics of the
      *         {@link UiElementSelector selector} and the path contained in the {@link AccessibilityElement element}
      */
-    // FIMXE: New matcher must be defined and used for comparison here. This matcher must use the properties available
-    // in the accessibility element for matching strategy.
     public AccessibilityNodeInfo isElementExisting(AccessibilityElement element,
-                                                   UiElementSelectorMatcher matcher,
-                                                   UiElementSelector selector,
+                                                   UiElementPropertiesContainerMatcher propertiesMatcher,
                                                    boolean visibleOnly) {
         String path = element.getPath();
         List<String> pathIndexes = path.trim().isEmpty() ? new ArrayList<String>()
                 : Arrays.asList(path.split(AccessibilityElementBuilder.PATH_SEPARATOR));
         Iterator<String> pathIterator = pathIndexes.iterator();
 
-        return findAccessibilityNode(localRootNodeInfo, pathIterator, matcher, selector, ROOT_NODE_INDEX, visibleOnly);
+        AccessibilityNodeInfo accessibilityNodeInfo = findNodeByPath(localRootNodeInfo,
+                                                                     pathIterator,
+                                                                     ROOT_NODE_INDEX,
+                                                                     visibleOnly);
+
+        return propertiesMatcher.match(element, accessibilityNodeInfo) ? accessibilityNodeInfo : null;
     }
 
     /**
      * Finds an {@link AccessibilityNodeInfo accessibility node} corresponding to the given path in the accessibility
-     * nodes hierarchy and the properties contained in the given {@link UiElementSelector selector}.
+     * nodes hierarchy.
      *
      */
-    private AccessibilityNodeInfo findAccessibilityNode(AccessibilityNodeInfo currentNode,
-                                                        Iterator<String> path,
-                                                        UiElementSelectorMatcher matcher,
-                                                        UiElementSelector selector,
-                                                        int index,
-                                                        boolean visibleOnly) {
-        if (!path.hasNext() && isMatchFound(currentNode, selector, matcher, index)) {
+    private AccessibilityNodeInfo findNodeByPath(AccessibilityNodeInfo currentNode,
+                                                 Iterator<String> path,
+                                                 int index,
+                                                 boolean visibleOnly) {
+        if (!path.hasNext()) {
             return currentNode;
         }
 
-        if (path.hasNext()) {
-            int currentPathIndex = Integer.parseInt(path.next());
+        int currentPathIndex = Integer.parseInt(path.next());
+        AccessibilityNodeInfo nextNode = currentNode.getChild(currentPathIndex);
 
-            AccessibilityNodeInfo nextNode = currentNode.getChild(currentPathIndex);
+        if (nextNode == null) {
+            return null;
+        }
 
-            if (nextNode == null) {
-                return null;
-            }
-
-            boolean checkExistence = visibleOnly ? nextNode.isVisibleToUser() : true;
-
-            if (checkExistence) {
-                return findAccessibilityNode(nextNode, path, matcher, selector, currentPathIndex, visibleOnly);
-            }
-
+        boolean checkExistence = visibleOnly ? nextNode.isVisibleToUser() : true;
+        if (checkExistence) {
+            return findNodeByPath(nextNode, path, currentPathIndex, visibleOnly);
         }
 
         return null;
