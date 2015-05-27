@@ -254,7 +254,7 @@ public class AccessibilityNodeTraverser {
     private Stack<Integer> extractPath(Map<AccessibilityNodeInfo, Integer> indexes, AccessibilityNodeInfo target) {
         Stack<Integer> indexesPath = new Stack<Integer>();
 
-        while (target != localRootNodeInfo) {
+        while (!localRootNodeInfo.equals(target)) {
             indexesPath.add(indexes.get(target));
             target = target.getParent();
         }

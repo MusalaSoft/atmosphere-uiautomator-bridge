@@ -9,6 +9,7 @@ import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
 import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
+import com.musala.atmosphere.uiautomator.uidump.UiElementRetriever;
 import com.musala.atmosphere.uiautomator.uidump.UiTreeBuilder;
 import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -80,6 +81,11 @@ public enum UIAutomatorProcessAction {
      * Indicates that the screen should be dumped to a XML file.
      */
     GET_UI_DUMP_XML(UIAutomatorRequest.GET_UI_DUMP_XML, UiXmlDumper.class),
+
+    /**
+     * Retrieves all UI elements matching the given selector.
+     */
+    GET_UI_ELEMENTS(UIAutomatorRequest.GET_UI_ELEMENTS, UiElementRetriever.class),
 
     /**
      * Indicates that an UI tree should be built from the screen of the device.
