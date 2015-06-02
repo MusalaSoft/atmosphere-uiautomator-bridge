@@ -126,7 +126,7 @@ public class AccessibilityElementBuilder {
         StringBuilder pathRepresentation = new StringBuilder(pathToLocalRoot);
 
         while (!pathIndexes.isEmpty()) {
-            pathRepresentation.append(PATH_SEPARATOR).append(pathIndexes.pop());
+            pathRepresentation.append(pathIndexes.pop()).append(PATH_SEPARATOR);
         }
 
         return pathRepresentation.toString();

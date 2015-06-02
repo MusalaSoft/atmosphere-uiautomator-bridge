@@ -72,51 +72,9 @@ public class AccessibilityNodeTraverser {
             matchingElements.add(rootAccessibilityElement);
         }
 
-        matchingElements.addAll(getChildren(matcher, selector, visibleOnly));
+        matchingElements.addAll(getChildren(matcher, selector, false, visibleOnly));
 
         return matchingElements;
-    }
-
-    /**
-     * Finds all direct children of the local root in the hierarchy of {@link AccessibilityNodeInfo accessibility nodes}
-     * that are matching the given {@link UiElementSelector selector} and {@link UiElementSelectorMatcher matcher}.
-     * 
-     * @param matcher
-     *        - defines the strategy for matching the given {@link UiElementSelector selector} and node from the
-     *        hierarchy
-     * @param selector
-     *        - contains the properties which accessibility nodes should match
-     * @param visibleOnly
-     *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
-     * @return list of {@link AccessibilityElements} that are direct children of the local root
-     * 
-     */
-    public List<AccessibilityElement> getDirectChildren(UiElementSelectorMatcher matcher,
-                                                        UiElementSelector selector,
-                                                        boolean visibleOnly) {
-        List<AccessibilityElement> directChildrenList = new ArrayList<AccessibilityElement>();
-        Map<AccessibilityNodeInfo, Integer> indexes = new HashMap<AccessibilityNodeInfo, Integer>();
-
-        int numberOfChildren = localRootNodeInfo.getChildCount();
-
-        for (int index = 0; index < numberOfChildren; index++) {
-            AccessibilityNodeInfo currentNodeInfo = localRootNodeInfo.getChild(index);
-
-            if (currentNodeInfo != null) {
-                boolean traverseAll = visibleOnly ? currentNodeInfo.isVisibleToUser() : true;
-
-                if (traverseAll && isMatchFound(currentNodeInfo, selector, matcher, index)) {
-                    Stack<Integer> pathIndexes = extractPath(indexes, currentNodeInfo);
-                    AccessibilityElement accessibilityElement = AccessibilityElementBuilder.build(currentNodeInfo,
-                                                                                                  pathIndexes,
-                                                                                                  pathToLocalRoot,
-                                                                                                  index);
-                    directChildrenList.add(accessibilityElement);
-                }
-            }
-        }
-
-        return directChildrenList;
     }
 
     /**
@@ -128,12 +86,15 @@ public class AccessibilityNodeTraverser {
      *        hierarchy
      * @param selector
      *        - contains the properties which accessibility nodes should match
+     * @param directOnly
+     *        - if <code>true</code> only direct children are traversed, otherwise all children are traversed
      * @param visibleOnly
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return list of {@link AccessibilityElements} that are children of the root
      */
     public List<AccessibilityElement> getChildren(UiElementSelectorMatcher matcher,
                                                   UiElementSelector selector,
+                                                  boolean directOnly,
                                                   boolean visibleOnly) {
         List<AccessibilityElement> childrenList = new ArrayList<AccessibilityElement>();
 
@@ -155,7 +116,9 @@ public class AccessibilityNodeTraverser {
                 childrenList.add(accessibilityElement);
             }
 
-            processDirectChildren(currentNodeInformation, nextNodes, nodeToindex, visibleOnly);
+            if (!directOnly) {
+                processDirectChildren(currentNodeInformation, nextNodes, nodeToindex, visibleOnly);
+            }
         }
 
         return childrenList;

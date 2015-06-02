@@ -10,6 +10,7 @@ import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uidump.UiElementRetriever;
+import com.musala.atmosphere.uiautomator.uidump.UiElementSuccessorRetriever;
 import com.musala.atmosphere.uiautomator.uidump.UiTreeBuilder;
 import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -95,7 +96,9 @@ public enum UIAutomatorProcessAction {
     /**
      * Indicates that the UIautomator process should be stopped.
      */
-    STOP(UIAutomatorRequest.STOP, ActionDispatcher.class);
+    STOP(UIAutomatorRequest.STOP, ActionDispatcher.class),
+
+    GET_CHILDREN(UIAutomatorRequest.GET_CHILDREN, UiElementSuccessorRetriever.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
