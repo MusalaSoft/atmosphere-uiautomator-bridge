@@ -34,7 +34,7 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(accessibilityRootNode, "");
         UiElementPropertiesContainerMatcher propertiesMatcher = new UiElementPropertiesContainerMatcher();
 
-        AccessibilityNodeInfo parentAccessibilityNode = traverser.isElementExisting(parentElement,
+        AccessibilityNodeInfo parentAccessibilityNode = traverser.getCorrespondingAccessibilityNodeInfo(parentElement,
                                                                                     propertiesMatcher,
                                                                                     visibleOnly);
 

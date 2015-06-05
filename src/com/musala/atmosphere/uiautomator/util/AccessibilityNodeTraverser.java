@@ -125,9 +125,10 @@ public class AccessibilityNodeTraverser {
     }
 
     /**
-     * Checks if {@link AccessibilityNodeInfo accessibility node} matching the given {@link AccessibilityElement
-     * element} exists in the hierarchy. Characteristics of the given {@link UiElementSelector selector} and the
-     * strategy defined by the {@link UiElementSelectorMatcher matcher} are used when the check is performed.
+     * Returns the corresponding {@link AccessibilityNodeInfo accessibility node} matching the given
+     * {@link AccessibilityElement element} exists in the hierarchy. Characteristics of the given
+     * {@link UiElementSelector selector} and the strategy defined by the {@link UiElementSelectorMatcher matcher} are
+     * used when the check is performed.
      * 
      * @param element
      *        - {@link AccessibilityElement accessibility element} for which a match will be searched in the
@@ -140,9 +141,9 @@ public class AccessibilityNodeTraverser {
      * @return {@link AccessibilityNodeInfo accessibility node} that matches the characteristics of the
      *         {@link UiElementSelector selector} and the path contained in the {@link AccessibilityElement element}
      */
-    public AccessibilityNodeInfo isElementExisting(AccessibilityElement element,
-                                                   UiElementPropertiesContainerMatcher propertiesMatcher,
-                                                   boolean visibleOnly) {
+    public AccessibilityNodeInfo getCorrespondingAccessibilityNodeInfo(AccessibilityElement element,
+                                                                       UiElementPropertiesContainerMatcher propertiesMatcher,
+                                                                       boolean visibleOnly) {
         String path = element.getPath();
         List<String> pathIndexes = path.trim().isEmpty() ? new ArrayList<String>()
                 : Arrays.asList(path.split(AccessibilityElementBuilder.PATH_SEPARATOR));

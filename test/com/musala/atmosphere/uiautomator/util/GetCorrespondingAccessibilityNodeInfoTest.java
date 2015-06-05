@@ -24,7 +24,7 @@ import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContaine
  * @author filareta.yordanova
  *
  */
-public class AccessibilityElementExistenceTest {
+public class GetCorrespondingAccessibilityNodeInfoTest {
     private static final String WRONG_ELEMENT_FOUND_MESSAGE = "The accessibility node that was found does not match the expected one.";
 
     private static final String UNEXPECTED_RESULT_MESSAGE = "Unexpected match for the given accessibility element was found.";
@@ -117,7 +117,7 @@ public class AccessibilityElementExistenceTest {
         boolean visibleOnly = true;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
                      mockedAccessibilityNodes[5],
-                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+                     traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class AccessibilityElementExistenceTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class AccessibilityElementExistenceTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -154,7 +154,7 @@ public class AccessibilityElementExistenceTest {
         boolean visibleOnly = true;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
                      mockedNodeInfoRoot,
-                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+                     traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class AccessibilityElementExistenceTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -180,7 +180,7 @@ public class AccessibilityElementExistenceTest {
         boolean visibleOnly = false;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
                      mockedAccessibilityNodes[3],
-                     traverser.isElementExisting(element, mockedMatcher, visibleOnly));
+                     traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     private String joinPathIndexes(List<Integer> pathIndexes) {
