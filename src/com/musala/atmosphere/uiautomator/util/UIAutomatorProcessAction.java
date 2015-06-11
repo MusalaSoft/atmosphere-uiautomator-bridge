@@ -1,8 +1,10 @@
 package com.musala.atmosphere.uiautomator.util;
 
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
+import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.uiautomator.ActionDispatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
+import com.musala.atmosphere.uiautomator.accessibility.ElementPresenceValidator;
 import com.musala.atmosphere.uiautomator.gestureplayer.GesturePlayHandler;
 import com.musala.atmosphere.uiautomator.notificationbar.NotificationBarOpener;
 import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
@@ -20,9 +22,9 @@ import com.musala.atmosphere.uiautomator.wait.WaitUntilUIElementGoneListener;
 
 /**
  * Enumerates the actions that a UIAutomator process should do.
- * 
+ *
  * @author georgi.gaydarov
- * 
+ *
  */
 public enum UIAutomatorProcessAction {
     // TODO implement uiautomator component info handler
@@ -98,7 +100,12 @@ public enum UIAutomatorProcessAction {
      */
     STOP(UIAutomatorRequest.STOP, ActionDispatcher.class),
 
-    GET_CHILDREN(UIAutomatorRequest.GET_CHILDREN, UiElementSuccessorRetriever.class);
+    GET_CHILDREN(UIAutomatorRequest.GET_CHILDREN, UiElementSuccessorRetriever.class),
+
+    /**
+     * Indicates that the presence of a given {@link AccessibilityElement} should be validated.
+     */
+    CHECK_ELEMENT_PRESENCE(UIAutomatorRequest.CHECK_ELEMENT_PRESENCE, ElementPresenceValidator.class);
 
     private static final UIAutomatorProcessAction DEFAULT_ACTION = PRINT_INFO;
 
@@ -119,7 +126,7 @@ public enum UIAutomatorProcessAction {
     }
 
     /**
-     * 
+     *
      * @return the dispatchable class associated with this action.
      */
     public Class<? extends Dispatchable> getHandler() {
@@ -128,7 +135,7 @@ public enum UIAutomatorProcessAction {
 
     /**
      * Returns a {@link UIAutomatorProcessAction} object by a given {@link UIAutomatorRequest} instance.
-     * 
+     *
      * @param request
      *        - the request instance.
      * @return a {@link UIAutomatorProcessAction} object for the given request.
