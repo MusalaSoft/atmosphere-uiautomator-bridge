@@ -193,9 +193,10 @@ public class AccessibilityNodeTraverser {
 
         for (int index = 0; index < childCount; index++) {
             AccessibilityNodeInfo childNodeInformation = nodeInfo.getChild(index);
-            boolean traverseAll = visibleOnly ? childNodeInformation.isVisibleToUser() : true;
+            boolean traverseAll = visibleOnly ? childNodeInformation != null && childNodeInformation.isVisibleToUser()
+                    : true;
 
-            if (childNodeInformation != null && traverseAll) {
+            if (traverseAll) {
                 nextNodes.add(childNodeInformation);
                 nodeToindex.put(childNodeInformation, index);
             }
