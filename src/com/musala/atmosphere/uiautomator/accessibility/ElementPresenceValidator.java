@@ -26,13 +26,11 @@ public class ElementPresenceValidator implements Dispatchable {
         AccessibilityNodeInfo root = helper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(root, "");
-
-        UiElementPropertiesContainerMatcher propertiesMatcher = new UiElementPropertiesContainerMatcher();
+        UiElementPropertiesContainerMatcher propertiesMatcher = UiElementPropertiesContainerMatcherFactory.getPropertiesContainerMatcher();
 
         AccessibilityNodeInfo foundElement = traverser.getCorrespondingAccessibilityNodeInfo(element,
                                                                                              propertiesMatcher,
                                                                                              visibleOnly);
-
         return foundElement != null;
     }
 }

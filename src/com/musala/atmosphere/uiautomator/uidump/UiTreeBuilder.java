@@ -20,6 +20,7 @@ public class UiTreeBuilder implements Dispatchable {
     public Object handle(Object[] args) throws Exception {
         boolean visibleOnly = (Boolean) args[0];
 
+        AccessibilityHelperFactory accessibilityHelperFactory = new AccessibilityHelperFactory();
         AccessibilityHelper helper = AccessibilityHelperFactory.getHelper();
         AccessibilityNodeInfo root = helper.getRootInActiveWindow();
 

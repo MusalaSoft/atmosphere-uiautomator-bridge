@@ -1,8 +1,8 @@
 package com.musala.atmosphere.uiautomator.helper;
 
-import com.musala.atmosphere.uiautomator.exception.IncompatibleAndroidSdkException;
-
 import android.os.Build;
+
+import com.musala.atmosphere.uiautomator.exception.IncompatibleAndroidSdkException;
 
 /**
  * Factory for instantiating {@link AccessibilityHelper} implementations.

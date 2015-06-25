@@ -6,6 +6,7 @@ import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
+import com.musala.atmosphere.uiautomator.accessibility.UiElementSelectorMatcherFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
@@ -29,7 +30,8 @@ public class UiElementRetriever implements Dispatchable {
         AccessibilityNodeTraverser accessibilityNodeTraverser = new AccessibilityNodeTraverser(accessibilityRootNode,
                                                                                                "");
 
-        return accessibilityNodeTraverser.find(new UiElementSelectorMatcher(), selector, visibleOnly);
-    }
+        UiElementSelectorMatcher selectorMatcher = UiElementSelectorMatcherFactory.getSelectorMatcher();
 
+        return accessibilityNodeTraverser.find(selectorMatcher, selector, visibleOnly);
+    }
 }

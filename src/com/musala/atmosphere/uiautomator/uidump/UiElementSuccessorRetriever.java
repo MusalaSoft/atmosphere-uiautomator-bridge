@@ -8,6 +8,8 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
+import com.musala.atmosphere.uiautomator.accessibility.UiElementPropertiesContainerMatcherFactory;
+import com.musala.atmosphere.uiautomator.accessibility.UiElementSelectorMatcherFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
@@ -32,11 +34,11 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         AccessibilityNodeInfo accessibilityRootNode = accessibilityHelper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(accessibilityRootNode, "");
-        UiElementPropertiesContainerMatcher propertiesMatcher = new UiElementPropertiesContainerMatcher();
+        UiElementPropertiesContainerMatcher propertiesMatcher = UiElementPropertiesContainerMatcherFactory.getPropertiesContainerMatcher();
 
         AccessibilityNodeInfo parentAccessibilityNode = traverser.getCorrespondingAccessibilityNodeInfo(parentElement,
-                                                                                    propertiesMatcher,
-                                                                                    visibleOnly);
+                                                                                                        propertiesMatcher,
+                                                                                                        visibleOnly);
 
         if (parentAccessibilityNode == null) {
             throw new UiElementFetchingException("Element, for which retrieving children is requested, is not present on the screen.");
@@ -44,7 +46,8 @@ public class UiElementSuccessorRetriever implements Dispatchable {
 
         AccessibilityNodeTraverser successorsTraverser = new AccessibilityNodeTraverser(parentAccessibilityNode,
                                                                                         parentElement.getPath());
-        UiElementSelectorMatcher successorSelectorMatcher = new UiElementSelectorMatcher();
+
+        UiElementSelectorMatcher successorSelectorMatcher = UiElementSelectorMatcherFactory.getSelectorMatcher();
 
         return successorsTraverser.getChildren(successorSelectorMatcher,
                                                successorSelector,
