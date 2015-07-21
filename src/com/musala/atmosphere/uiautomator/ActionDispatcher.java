@@ -10,6 +10,7 @@ import com.musala.atmosphere.commons.ad.RequestHandler;
 import com.musala.atmosphere.commons.ad.service.ConnectionConstants;
 import com.musala.atmosphere.commons.ad.socket.OnDeviceSocketServer;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.logger.Log4JConfigurator;
 import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
 
@@ -34,6 +35,7 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
      */
     public void testRun() {
         Log4JConfigurator.configure();
+        AccessibilityFactory.initialize();
 
         try {
             socketServer = new OnDeviceSocketServer<UIAutomatorRequest>(this, ConnectionConstants.UI_AUTOMATOR_PORT);

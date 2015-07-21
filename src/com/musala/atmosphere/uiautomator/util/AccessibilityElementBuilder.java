@@ -16,6 +16,7 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
  * 
  */
 public class AccessibilityElementBuilder {
+
     static final String PATH_SEPARATOR = ", ";
 
     /**
@@ -27,7 +28,7 @@ public class AccessibilityElementBuilder {
      *        - index of the node
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
-    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo, int index) {
+    public AccessibilityElement build(AccessibilityNodeInfo nodeInfo, int index) {
         if (nodeInfo == null) {
             return null;
         }
@@ -52,10 +53,10 @@ public class AccessibilityElementBuilder {
      *        - path from the absolute root to the local root of the hierarchy
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
-    public static AccessibilityElement build(AccessibilityNodeInfo nodeInfo,
-                                             Stack<Integer> pathIndexes,
-                                             String pathToLocalRoot,
-                                             int index) {
+    public AccessibilityElement build(AccessibilityNodeInfo nodeInfo,
+                                      Stack<Integer> pathIndexes,
+                                      String pathToLocalRoot,
+                                      int index) {
         if (nodeInfo == null) {
             return null;
         }
@@ -67,7 +68,7 @@ public class AccessibilityElementBuilder {
         return element;
     }
 
-    private static void setCommonProperties(AccessibilityNodeInfo nodeInfo, AccessibilityElement element, int index) {
+    protected void setCommonProperties(AccessibilityNodeInfo nodeInfo, AccessibilityElement element, int index) {
         element.setText(charSeqToString(nodeInfo.getText()));
         element.setClassName(charSeqToString(nodeInfo.getClassName()));
         element.setPackageName(charSeqToString(nodeInfo.getPackageName()));
@@ -86,7 +87,6 @@ public class AccessibilityElementBuilder {
 
         Rect boundsRect = new Rect();
         nodeInfo.getBoundsInScreen(boundsRect);
-
         Point topLeft = new Point(boundsRect.left, boundsRect.top);
         Point bottomRight = new Point(boundsRect.right, boundsRect.bottom);
         Bounds bounds = new Bounds(topLeft, bottomRight);

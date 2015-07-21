@@ -27,46 +27,64 @@ public class UiSelectorParser {
         Boolean scrollable = descriptor.isScrollable();
         Boolean selected = descriptor.isSelected();
         String text = descriptor.getText();
+        String resourceId = descriptor.getResourceId();
 
         if (checked != null) {
             selector = selector.checked(checked);
         }
+
         if (className != null) {
             selector = selector.className(className);
         }
+
         if (clickable != null) {
             selector = selector.clickable(clickable);
         }
+
         if (description != null) {
             selector = selector.description(description);
         }
+
         if (enabled != null) {
             selector = selector.enabled(enabled);
         }
+
         if (focusable != null) {
             selector = selector.focused(focusable);
         }
+
         if (focused != null) {
             selector = selector.focused(focused);
         }
+
         if (index != null) {
             selector = selector.index(index);
         }
+
         if (longClickable != null) {
             selector = selector.longClickable(longClickable);
         }
+
         if (packageName != null) {
             selector = selector.packageName(packageName);
         }
+
         if (scrollable != null) {
             selector = selector.scrollable(scrollable);
         }
+
         if (selected != null) {
             selector = selector.selected(selected);
         }
+
         if (text != null) {
             selector = selector.text(text);
         }
+
+        if (resourceId != null) {
+            selector = selector.resourceId(resourceId);
+        }
+
         return selector;
     }
 }

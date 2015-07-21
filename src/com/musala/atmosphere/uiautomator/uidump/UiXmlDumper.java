@@ -6,8 +6,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.Dispatchable;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
-import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 
 /**
  * Class that is responsible for dumping the current screen of the device to a XML file.
@@ -19,8 +19,7 @@ public class UiXmlDumper implements Dispatchable {
 
     @Override
     public Object handle(Object[] args) throws Exception {
-        AccessibilityHelperFactory accessibilityHelperFactory = new AccessibilityHelperFactory();
-        AccessibilityHelper helper = AccessibilityHelperFactory.getHelper();
+        AccessibilityHelper helper = AccessibilityFactory.getAccessibilityHelper();
         AccessibilityNodeInfo root = helper.getRootInActiveWindow();
 
         if (root != null) {

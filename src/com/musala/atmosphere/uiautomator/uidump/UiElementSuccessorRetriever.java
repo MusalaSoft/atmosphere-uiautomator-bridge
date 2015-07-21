@@ -8,10 +8,8 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
-import com.musala.atmosphere.uiautomator.accessibility.UiElementPropertiesContainerMatcherFactory;
-import com.musala.atmosphere.uiautomator.accessibility.UiElementSelectorMatcherFactory;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
-import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
 
 /**
@@ -30,11 +28,11 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         Boolean directChildrenOnly = (Boolean) args[2];
         Boolean visibleOnly = (Boolean) args[3];
 
-        AccessibilityHelper accessibilityHelper = AccessibilityHelperFactory.getHelper();
+        AccessibilityHelper accessibilityHelper = AccessibilityFactory.getAccessibilityHelper();
         AccessibilityNodeInfo accessibilityRootNode = accessibilityHelper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(accessibilityRootNode, "");
-        UiElementPropertiesContainerMatcher propertiesMatcher = UiElementPropertiesContainerMatcherFactory.getPropertiesContainerMatcher();
+        UiElementPropertiesContainerMatcher propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
 
         AccessibilityNodeInfo parentAccessibilityNode = traverser.getCorrespondingAccessibilityNodeInfo(parentElement,
                                                                                                         propertiesMatcher,
@@ -47,7 +45,7 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         AccessibilityNodeTraverser successorsTraverser = new AccessibilityNodeTraverser(parentAccessibilityNode,
                                                                                         parentElement.getPath());
 
-        UiElementSelectorMatcher successorSelectorMatcher = UiElementSelectorMatcherFactory.getSelectorMatcher();
+        UiElementSelectorMatcher successorSelectorMatcher = AccessibilityFactory.getUiElementSelectorMatcher();
 
         return successorsTraverser.getChildren(successorSelectorMatcher,
                                                successorSelector,

@@ -17,6 +17,7 @@ import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 
 /**
  * Class responsible for traversing {@link AccessibilityNodeInfo accessibility nodes} hierarchy by the given root node.
@@ -65,7 +66,8 @@ public class AccessibilityNodeTraverser {
 
         if (isMatchFound(localRootNodeInfo, selector, matcher, ROOT_NODE_INDEX)) {
             Stack<Integer> pathIndexes = new Stack<Integer>();
-            AccessibilityElement rootAccessibilityElement = AccessibilityElementBuilder.build(localRootNodeInfo,
+            AccessibilityElementBuilder accessibilityElementBuilder = AccessibilityFactory.getAccessibilityElementBuilder();
+            AccessibilityElement rootAccessibilityElement = accessibilityElementBuilder.build(localRootNodeInfo,
                                                                                               pathIndexes,
                                                                                               pathToLocalRoot,
                                                                                               ROOT_NODE_INDEX);
@@ -109,7 +111,8 @@ public class AccessibilityNodeTraverser {
 
             if (isMatchFound(currentNodeInformation, selector, matcher, currentNodeIndex)) {
                 Stack<Integer> pathIndexes = extractPath(nodeToindex, currentNodeInformation);
-                AccessibilityElement accessibilityElement = AccessibilityElementBuilder.build(currentNodeInformation,
+                AccessibilityElementBuilder accessibilityElementBuilder = AccessibilityFactory.getAccessibilityElementBuilder();
+                AccessibilityElement accessibilityElement = accessibilityElementBuilder.build(currentNodeInformation,
                                                                                               pathIndexes,
                                                                                               pathToLocalRoot,
                                                                                               currentNodeIndex);

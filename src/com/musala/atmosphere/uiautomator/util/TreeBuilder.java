@@ -5,6 +5,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.util.structure.tree.Node;
 import com.musala.atmosphere.commons.util.structure.tree.Tree;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 
 /**
  * Class that builds a {@link Tree tree} based on a root {@link AccessibilityNodeInfo}.
@@ -34,7 +35,9 @@ public class TreeBuilder {
             return new Node<AccessibilityElement>(null);
         }
 
-        AccessibilityElement elementData = AccessibilityElementBuilder.build(nodeInfo, index);
+        AccessibilityElementBuilder accessibilityElementBuilder = AccessibilityFactory.getAccessibilityElementBuilder();
+        AccessibilityElement elementData = accessibilityElementBuilder.build(nodeInfo, index);
+
         Node<AccessibilityElement> builtNode = new Node<AccessibilityElement>(elementData);
 
         int childCount = nodeInfo.getChildCount();

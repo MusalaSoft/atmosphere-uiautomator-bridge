@@ -6,7 +6,6 @@ import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
-import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
 
 /**
@@ -22,11 +21,11 @@ public class ElementPresenceValidator implements Dispatchable {
         AccessibilityElement element = (AccessibilityElement) args[0];
         boolean visibleOnly = (Boolean) args[1];
 
-        AccessibilityHelper helper = AccessibilityHelperFactory.getHelper();
+        AccessibilityHelper helper = AccessibilityFactory.getAccessibilityHelper();
         AccessibilityNodeInfo root = helper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(root, "");
-        UiElementPropertiesContainerMatcher propertiesMatcher = UiElementPropertiesContainerMatcherFactory.getPropertiesContainerMatcher();
+        UiElementPropertiesContainerMatcher propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
 
         AccessibilityNodeInfo foundElement = traverser.getCorrespondingAccessibilityNodeInfo(element,
                                                                                              propertiesMatcher,
