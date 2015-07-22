@@ -3,6 +3,7 @@ package com.musala.atmosphere.uiautomator.helper;
 import java.io.File;
 import java.lang.reflect.Field;
 
+import android.app.UiAutomation.OnAccessibilityEventListener;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
@@ -12,10 +13,12 @@ import com.android.uiautomator.core.AccessibilityNodeInfoDumper;
 import com.android.uiautomator.core.UiAutomatorBridge;
 import com.android.uiautomator.core.UiDevice;
 import com.musala.atmosphere.uiautomator.exception.IncompatibleAndroidSdkException;
+import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEvenntHandlerImpl;
+import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEventHandler;
 
 /**
  * {@link AccessibilityHelper} implementation compatible with API level 18 and above.
- * 
+ *
  * @author vassil.angelov
  *
  */
@@ -29,16 +32,17 @@ public class AccessibilityHelperImpl implements AccessibilityHelper {
                                                                               AccessibilityHelperImpl.class.getSimpleName(),
                                                                               Build.VERSION.SDK_INT);
 
+    private static AccessibilityEventHandler eventHandler;
+
     private UiAutomatorBridge uiAutomatorBridge;
 
     /**
      * Creates new accessibility helper compatible with API level 18 and above.
-     * 
+     *
      * @throws IncompatibleAndroidSdkException
      *         if the device SDK API level is below 18
      */
     public AccessibilityHelperImpl() {
-
         try {
             Field automationBridgeField = UiDevice.class.getDeclaredField(UI_DEVICE_AUTOMATION_BRIDGE_FIELD_NAME);
             automationBridgeField.setAccessible(true);
@@ -65,5 +69,28 @@ public class AccessibilityHelperImpl implements AccessibilityHelper {
         Point size = new Point();
         display.getSize(size);
         AccessibilityNodeInfoDumper.dumpWindowToFile(root, file, display.getRotation(), size.x, size.y);
+    }
+
+    @Override
+    public void initializeAccessibilityEventListener() {
+        if (eventHandler != null) {
+            return;
+        }
+
+        try {
+            OnAccessibilityEventListener eventListener = new AccessibilityEvenntHandlerImpl();
+            uiAutomatorBridge.setOnAccessibilityEventListener(eventListener);
+
+            eventHandler = (AccessibilityEventHandler) eventListener;
+        } catch (SecurityException e) {
+            throw new IncompatibleAndroidSdkException(INCOMPATIBILITY_ERROR_MESSAGE, e);
+        } catch (IllegalArgumentException e) {
+            throw new IncompatibleAndroidSdkException(INCOMPATIBILITY_ERROR_MESSAGE, e);
+        }
+    }
+
+    @Override
+    public String getLastToast() {
+        return eventHandler.getLastToast();
     }
 }

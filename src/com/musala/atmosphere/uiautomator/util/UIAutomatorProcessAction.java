@@ -9,6 +9,7 @@ import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
 import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
+import com.musala.atmosphere.uiautomator.toast.ToastMessageObtainer;
 import com.musala.atmosphere.uiautomator.uidump.UiTreeBuilder;
 import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -18,9 +19,9 @@ import com.musala.atmosphere.uiautomator.wait.WaitUntilUIElementGoneListener;
 
 /**
  * Enumerates the actions that a UIAutomator process should do.
- * 
+ *
  * @author georgi.gaydarov
- * 
+ *
  */
 public enum UIAutomatorProcessAction {
     // TODO implement uiautomator component info handler
@@ -87,6 +88,11 @@ public enum UIAutomatorProcessAction {
     GET_UI_TREE(UIAutomatorRequest.GET_UI_TREE, UiTreeBuilder.class),
 
     /**
+     * Indicates that the text of the last detected toast message should be obtained.
+     */
+    GET_LAST_TOAST(UIAutomatorRequest.GET_LAST_TOAST, ToastMessageObtainer.class),
+
+    /**
      * Indicates that the UIautomator process should be stopped.
      */
     STOP(UIAutomatorRequest.STOP, ActionDispatcher.class);
@@ -110,7 +116,7 @@ public enum UIAutomatorProcessAction {
     }
 
     /**
-     * 
+     *
      * @return the dispatchable class associated with this action.
      */
     public Class<? extends Dispatchable> getHandler() {
@@ -119,7 +125,7 @@ public enum UIAutomatorProcessAction {
 
     /**
      * Returns a {@link UIAutomatorProcessAction} object by a given {@link UIAutomatorRequest} instance.
-     * 
+     *
      * @param request
      *        - the request instance.
      * @return a {@link UIAutomatorProcessAction} object for the given request.
