@@ -1,8 +1,8 @@
 package com.musala.atmosphere.uiautomator.toast;
 
 import com.musala.atmosphere.uiautomator.Dispatchable;
+import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
-import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 
 /**
  * Class that is responsible for obtaining the text of the last detected toast message.
@@ -14,7 +14,7 @@ public class ToastMessageObtainer implements Dispatchable {
 
     @Override
     public Object handle(Object[] args) throws Exception {
-        AccessibilityHelper helper = AccessibilityHelperFactory.getHelper();
+        AccessibilityHelper helper = AccessibilityFactory.getAccessibilityHelper();
         return helper.getLastToast();
     }
 }

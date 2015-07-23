@@ -12,7 +12,6 @@ import com.musala.atmosphere.commons.ad.socket.OnDeviceSocketServer;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
-import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.logger.Log4JConfigurator;
 import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
 
@@ -39,7 +38,7 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
         Log4JConfigurator.configure();
         AccessibilityFactory.initialize();
 
-        AccessibilityHelper accessibilityHelper = AccessibilityHelperFactory.getHelper();
+        AccessibilityHelper accessibilityHelper = AccessibilityFactory.getAccessibilityHelper();
         accessibilityHelper.initializeAccessibilityEventListener();
 
         try {
