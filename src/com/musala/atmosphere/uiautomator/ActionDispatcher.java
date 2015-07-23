@@ -11,14 +11,16 @@ import com.musala.atmosphere.commons.ad.service.ConnectionConstants;
 import com.musala.atmosphere.commons.ad.socket.OnDeviceSocketServer;
 import com.musala.atmosphere.commons.ad.uiautomator.UIAutomatorRequest;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
+import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
+import com.musala.atmosphere.uiautomator.helper.AccessibilityHelperFactory;
 import com.musala.atmosphere.uiautomator.logger.Log4JConfigurator;
 import com.musala.atmosphere.uiautomator.util.UIAutomatorProcessAction;
 
 /**
  * UI automator main entry point. Initializes the socket server and request handlers.
- * 
+ *
  * @author georgi.gaydarov
- * 
+ *
  */
 public class ActionDispatcher extends UiAutomatorTestCase implements RequestHandler<UIAutomatorRequest>, Dispatchable {
 
@@ -36,6 +38,9 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
     public void testRun() {
         Log4JConfigurator.configure();
         AccessibilityFactory.initialize();
+
+        AccessibilityHelper accessibilityHelper = AccessibilityHelperFactory.getHelper();
+        accessibilityHelper.initializeAccessibilityEventListener();
 
         try {
             socketServer = new OnDeviceSocketServer<UIAutomatorRequest>(this, ConnectionConstants.UI_AUTOMATOR_PORT);

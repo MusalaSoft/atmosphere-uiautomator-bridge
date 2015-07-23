@@ -12,6 +12,7 @@ import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
 import com.musala.atmosphere.uiautomator.uidump.UiElementRetriever;
+import com.musala.atmosphere.uiautomator.toast.ToastMessageObtainer;
 import com.musala.atmosphere.uiautomator.uidump.UiElementSuccessorRetriever;
 import com.musala.atmosphere.uiautomator.uidump.UiTreeBuilder;
 import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
@@ -94,6 +95,11 @@ public enum UIAutomatorProcessAction {
      * Indicates that an UI tree should be built from the screen of the device.
      */
     GET_UI_TREE(UIAutomatorRequest.GET_UI_TREE, UiTreeBuilder.class),
+
+    /**
+     * Indicates that the text of the last detected toast message should be obtained.
+     */
+    GET_LAST_TOAST(UIAutomatorRequest.GET_LAST_TOAST, ToastMessageObtainer.class),
 
     /**
      * Indicates that the UIautomator process should be stopped.
