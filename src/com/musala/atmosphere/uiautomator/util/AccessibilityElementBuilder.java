@@ -2,26 +2,23 @@ package com.musala.atmosphere.uiautomator.util;
 
 import java.util.Stack;
 
-import android.graphics.Rect;
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.geometry.Bounds;
 import com.musala.atmosphere.commons.geometry.Point;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 
+import android.graphics.Rect;
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
  * Class that builds an {@link AccessibilityElement} based on {@link AccessibilityNodeInfo}.
- * 
+ *
  * @author yordan.petrov
- * 
+ *
  */
 public class AccessibilityElementBuilder {
-
-    static final String PATH_SEPARATOR = ", ";
-
     /**
      * Builds an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}.
-     * 
+     *
      * @param nodeInfo
      *        - the {@link AccessibilityNodeInfo} the {@link AccessibilityElement} is being built on
      * @param index
@@ -43,7 +40,7 @@ public class AccessibilityElementBuilder {
      * Builds an {@link AccessibilityElement} based on a given {@link AccessibilityNodeInfo accessibility node
      * information} and the corresponding path from the root of the hierarchy to this element, represented with
      * element's indexes.
-     * 
+     *
      * @param nodeInfo
      *        - the {@link AccessibilityNodeInfo} the {@link AccessibilityElement} is being built on
      * @param pathIndexes
@@ -96,7 +93,7 @@ public class AccessibilityElementBuilder {
 
     /**
      * Converts a given {@link CharSequence char sequence} to string.
-     * 
+     *
      * @param charSequence
      *        - the {@link CharSequence char sequence} to be converted
      * @return a String build from the given {@link CharSequence char sequence}
@@ -114,7 +111,7 @@ public class AccessibilityElementBuilder {
     /**
      * Builds a string representation of the path from the root of the hierarchy to the element returned from the
      * {@link AccessibilityElementBuilder builder}.
-     * 
+     *
      * @param pathToLocalRoot
      *        - path from the absolute root to the local root of the hierarchy
      * @param pathIndexes
@@ -126,7 +123,7 @@ public class AccessibilityElementBuilder {
         StringBuilder pathRepresentation = new StringBuilder(pathToLocalRoot);
 
         while (!pathIndexes.isEmpty()) {
-            pathRepresentation.append(pathIndexes.pop()).append(PATH_SEPARATOR);
+            pathRepresentation.append(pathIndexes.pop()).append(AccessibilityElement.PATH_SEPARATOR);
         }
 
         return pathRepresentation.toString();
