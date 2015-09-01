@@ -14,13 +14,13 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
- * 
+ *
  * @author filareta.yordanova
  *
  */
@@ -129,7 +129,8 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE,
+                   traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -141,7 +142,8 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE,
+                   traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -166,7 +168,8 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
-        assertNull(UNEXPECTED_RESULT_MESSAGE, traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
+        assertNull(UNEXPECTED_RESULT_MESSAGE,
+                   traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
     @Test
@@ -193,7 +196,7 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         StringBuilder path = new StringBuilder(pathIterator.next().toString());
 
         while (pathIterator.hasNext()) {
-            path.append(AccessibilityElementBuilder.PATH_SEPARATOR).append(pathIterator.next());
+            path.append(AccessibilityElement.PATH_SEPARATOR).append(pathIterator.next());
         }
 
         return path.toString();

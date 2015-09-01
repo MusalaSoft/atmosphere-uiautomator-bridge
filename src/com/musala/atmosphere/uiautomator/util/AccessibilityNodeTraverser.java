@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.ui.selector.CssAttribute;
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
@@ -19,12 +17,14 @@ import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContaine
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
  * Class responsible for traversing {@link AccessibilityNodeInfo accessibility nodes} hierarchy by the given root node.
- * 
+ *
  * @author filareta.yordanova
- * 
- * 
+ *
+ *
  */
 public class AccessibilityNodeTraverser {
     private static final int ROOT_NODE_INDEX = 0;
@@ -35,7 +35,7 @@ public class AccessibilityNodeTraverser {
 
     /**
      * Creates a new {@link AccessibilityNodeTraverser} by a given local root and the absolute path to it.
-     * 
+     *
      * @param localRootNodeInfo
      *        - the node information of the local root
      * @param pathToLocalRoot
@@ -82,7 +82,7 @@ public class AccessibilityNodeTraverser {
     /**
      * Finds all children of the root in the hierarchy of {@link AccessibilityNodeInfo accessibility nodes} that are
      * matching the given {@link UiElementSelector selector} and {@link UiElementSelectorMatcher matcher}.
-     * 
+     *
      * @param matcher
      *        - defines the strategy for matching the given {@link UiElementSelector selector} and node from the
      *        hierarchy
@@ -132,7 +132,7 @@ public class AccessibilityNodeTraverser {
      * {@link AccessibilityElement element} exists in the hierarchy. Characteristics of the given
      * {@link UiElementSelector selector} and the strategy defined by the {@link UiElementSelectorMatcher matcher} are
      * used when the check is performed.
-     * 
+     *
      * @param element
      *        - {@link AccessibilityElement accessibility element} for which a match will be searched in the
      *        {@link AccessibilityNodeInfo nodes} hierarchy
@@ -149,7 +149,7 @@ public class AccessibilityNodeTraverser {
                                                                        boolean visibleOnly) {
         String path = element.getPath();
         List<String> pathIndexes = path.trim().isEmpty() ? new ArrayList<String>()
-                : Arrays.asList(path.split(AccessibilityElementBuilder.PATH_SEPARATOR));
+                : Arrays.asList(path.split(AccessibilityElement.PATH_SEPARATOR));
         Iterator<String> pathIterator = pathIndexes.iterator();
 
         AccessibilityNodeInfo accessibilityNodeInfo = findNodeByPath(localRootNodeInfo,
