@@ -1,4 +1,4 @@
-package com.musala.atmosphere.uiautomator.query;
+package com.musala.atmosphere.uiautomator.xpath.query;
 
 import com.musala.atmosphere.uiautomator.xpath.tree.UiNode;
 import com.musala.atmosphere.uiautomator.xpath.tree.UiRoot;

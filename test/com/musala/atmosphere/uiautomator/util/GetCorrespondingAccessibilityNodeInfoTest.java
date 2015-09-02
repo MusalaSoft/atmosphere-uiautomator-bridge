@@ -14,8 +14,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -33,12 +34,12 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
 
     private static AccessibilityNodeInfo[] mockedAccessibilityNodes;
 
-    private static UiElementPropertiesContainerMatcher mockedMatcher;
+    private static UiElementMatcher<UiElementPropertiesContainer> mockedMatcher;
 
     @BeforeClass
     public static void setUp() {
         mockedAccessibilityNodes = new AccessibilityNodeInfo[6];
-        mockedMatcher = mock(UiElementPropertiesContainerMatcher.class);
+        mockedMatcher = mock(UiElementMatcher.class);
 
         mockedNodeInfoRoot = mock(AccessibilityNodeInfo.class);
 

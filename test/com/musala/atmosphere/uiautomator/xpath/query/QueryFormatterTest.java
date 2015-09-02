@@ -1,10 +1,10 @@
-package com.musala.atmosphere.uiautomator.query;
+package com.musala.atmosphere.uiautomator.xpath.query;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.musala.atmosphere.uiautomator.query.QueryFormatter;
+import com.musala.atmosphere.uiautomator.xpath.query.QueryFormatter;
 
 /**
  * Tests that cover the {@link QueryFormatter#format(String)} logic. It should format the queries so that only nodes

@@ -3,12 +3,6 @@ package com.musala.atmosphere.uiautomator.helper;
 import java.io.File;
 import java.lang.reflect.Field;
 
-import android.app.UiAutomation.OnAccessibilityEventListener;
-import android.graphics.Point;
-import android.os.Build;
-import android.view.Display;
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.android.uiautomator.core.AccessibilityNodeInfoDumper;
 import com.android.uiautomator.core.UiAutomatorBridge;
 import com.android.uiautomator.core.UiDevice;
@@ -16,8 +10,15 @@ import com.musala.atmosphere.uiautomator.exception.IncompatibleAndroidSdkExcepti
 import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEvenntHandlerImpl;
 import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEventHandler;
 
+import android.app.UiAutomation.OnAccessibilityEventListener;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.Display;
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
- * {@link AccessibilityHelper} implementation compatible with API level 18 and above.
+ * {@link AccessibilityHelper} implementation compatible with <b>API level 18 and above</b>.</br>
+ * For API 17 use {@link AccessibilityHelperCompat}.
  *
  * @author vassil.angelov
  *

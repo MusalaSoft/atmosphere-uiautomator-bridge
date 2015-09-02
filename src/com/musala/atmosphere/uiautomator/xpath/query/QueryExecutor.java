@@ -1,4 +1,4 @@
-package com.musala.atmosphere.uiautomator.query;
+package com.musala.atmosphere.uiautomator.xpath.query;
 
 import java.util.ArrayList;
 import java.util.List;

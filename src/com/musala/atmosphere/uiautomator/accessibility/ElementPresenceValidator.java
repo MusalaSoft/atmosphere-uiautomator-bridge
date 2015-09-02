@@ -1,12 +1,13 @@
 package com.musala.atmosphere.uiautomator.accessibility;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
+import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
+
+import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * Class that is responsible for validating that a given element is present on the screen.
@@ -25,7 +26,7 @@ public class ElementPresenceValidator implements Dispatchable {
         AccessibilityNodeInfo root = helper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(root, "");
-        UiElementPropertiesContainerMatcher propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
+        UiElementMatcher<UiElementPropertiesContainer> propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
 
         AccessibilityNodeInfo foundElement = traverser.getCorrespondingAccessibilityNodeInfo(element,
                                                                                              propertiesMatcher,
