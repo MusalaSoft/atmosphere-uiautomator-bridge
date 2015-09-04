@@ -33,8 +33,6 @@ public abstract class AccessibilityNodeInfoWrapper implements UiNode {
      *
      * @param accessibilityNode
      *        - the {@link AccessibilityNodeInfo} to be wrapped
-     * @param index
-     *        - the index of the node in the hierarchy
      */
     public AccessibilityNodeInfoWrapper(AccessibilityNodeInfo accessibilityNode) {
         this(accessibilityNode, 0, "");

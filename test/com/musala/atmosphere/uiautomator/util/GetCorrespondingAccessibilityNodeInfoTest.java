@@ -17,6 +17,7 @@ import org.junit.Test;
 import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
+import com.musala.atmosphere.uiautomator.resources.TestResources;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -38,73 +39,10 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
 
     @BeforeClass
     public static void setUp() {
-        mockedAccessibilityNodes = new AccessibilityNodeInfo[6];
         mockedMatcher = mock(UiElementMatcher.class);
 
-        mockedNodeInfoRoot = mock(AccessibilityNodeInfo.class);
-
-        when(mockedNodeInfoRoot.getClassName()).thenReturn("RelativeLayout");
-        when(mockedNodeInfoRoot.isFocusable()).thenReturn(true);
-        when(mockedNodeInfoRoot.isVisibleToUser()).thenReturn(true);
-
-        mockedAccessibilityNodes[0] = mock(AccessibilityNodeInfo.class);
-
-        when(mockedAccessibilityNodes[0].getClassName()).thenReturn("ImageView");
-        when(mockedAccessibilityNodes[0].isFocusable()).thenReturn(true);
-        when(mockedAccessibilityNodes[0].isVisibleToUser()).thenReturn(true);
-
-        mockedAccessibilityNodes[1] = mock(AccessibilityNodeInfo.class);
-
-        when(mockedAccessibilityNodes[1].getClassName()).thenReturn("ImageView");
-        when(mockedAccessibilityNodes[1].isClickable()).thenReturn(true);
-        when(mockedAccessibilityNodes[1].isVisibleToUser()).thenReturn(true);
-
-        mockedAccessibilityNodes[2] = mock(AccessibilityNodeInfo.class);
-
-        when(mockedAccessibilityNodes[2].getClassName()).thenReturn("Button");
-        when(mockedAccessibilityNodes[2].isClickable()).thenReturn(true);
-        when(mockedAccessibilityNodes[2].isVisibleToUser()).thenReturn(true);
-
-        mockedAccessibilityNodes[3] = mock(AccessibilityNodeInfo.class);
-
-        when(mockedAccessibilityNodes[3].getClassName()).thenReturn("ImageView");
-        when(mockedAccessibilityNodes[3].isFocusable()).thenReturn(true);
-        when(mockedAccessibilityNodes[3].isVisibleToUser()).thenReturn(false);
-
-        mockedAccessibilityNodes[4] = mock(AccessibilityNodeInfo.class);
-        when(mockedAccessibilityNodes[4].getClassName()).thenReturn("ViewGroup");
-        when(mockedAccessibilityNodes[4].isFocusable()).thenReturn(true);
-        when(mockedAccessibilityNodes[4].isVisibleToUser()).thenReturn(true);
-
-        mockedAccessibilityNodes[5] = mock(AccessibilityNodeInfo.class);
-        when(mockedAccessibilityNodes[5].getClassName()).thenReturn("ImageView");
-        when(mockedAccessibilityNodes[5].isFocusable()).thenReturn(true);
-        when(mockedAccessibilityNodes[5].isVisibleToUser()).thenReturn(true);
-
-        when(mockedNodeInfoRoot.getChildCount()).thenReturn(3);
-        when(mockedNodeInfoRoot.getChild(0)).thenReturn(mockedAccessibilityNodes[0]);
-        when(mockedNodeInfoRoot.getChild(1)).thenReturn(mockedAccessibilityNodes[1]);
-        when(mockedNodeInfoRoot.getChild(2)).thenReturn(mockedAccessibilityNodes[2]);
-
-        when(mockedAccessibilityNodes[0].getChildCount()).thenReturn(2);
-        when(mockedAccessibilityNodes[0].getChild(0)).thenReturn(mockedAccessibilityNodes[3]);
-        when(mockedAccessibilityNodes[0].getChild(1)).thenReturn(mockedAccessibilityNodes[4]);
-
-        when(mockedAccessibilityNodes[2].getChildCount()).thenReturn(2);
-        when(mockedAccessibilityNodes[2].getChild(1)).thenReturn(mockedAccessibilityNodes[5]);
-
-        when(mockedAccessibilityNodes[1].getChildCount()).thenReturn(0);
-        when(mockedAccessibilityNodes[3].getChildCount()).thenReturn(0);
-        when(mockedAccessibilityNodes[4].getChildCount()).thenReturn(0);
-        when(mockedAccessibilityNodes[5].getChildCount()).thenReturn(0);
-
-        when(mockedAccessibilityNodes[0].getParent()).thenReturn(mockedNodeInfoRoot);
-        when(mockedAccessibilityNodes[1].getParent()).thenReturn(mockedNodeInfoRoot);
-        when(mockedAccessibilityNodes[2].getParent()).thenReturn(mockedNodeInfoRoot);
-
-        when(mockedAccessibilityNodes[3].getParent()).thenReturn(mockedAccessibilityNodes[0]);
-        when(mockedAccessibilityNodes[4].getParent()).thenReturn(mockedAccessibilityNodes[0]);
-        when(mockedAccessibilityNodes[5].getParent()).thenReturn(mockedAccessibilityNodes[2]);
+        mockedAccessibilityNodes = TestResources.getMockedHierarchy();
+        mockedNodeInfoRoot = mockedAccessibilityNodes[0];
     }
 
     @Test
@@ -112,12 +50,12 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         Integer[] path = {2, 1};
         AccessibilityElement element = new AccessibilityElement();
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[6]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
-                     mockedAccessibilityNodes[5],
+                     mockedAccessibilityNodes[6],
                      traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
@@ -126,7 +64,7 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         Integer[] path = {2, 1};
         AccessibilityElement element = new AccessibilityElement();
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(false);
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[6]))).thenReturn(false);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
@@ -139,7 +77,7 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         Integer[] path = {2, 1, 2};
         AccessibilityElement element = new AccessibilityElement();
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[5]))).thenReturn(true);
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[6]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
@@ -165,7 +103,7 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         Integer[] path = {0, 0};
         AccessibilityElement element = new AccessibilityElement();
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[4]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = true;
@@ -178,12 +116,12 @@ public class GetCorrespondingAccessibilityNodeInfoTest {
         Integer[] path = {0, 0};
         AccessibilityElement element = new AccessibilityElement();
         element.setPath(joinPathIndexes(Arrays.asList(path)));
-        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[3]))).thenReturn(true);
+        when(mockedMatcher.match(eq(element), eq(mockedAccessibilityNodes[4]))).thenReturn(true);
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(mockedNodeInfoRoot, "");
         boolean visibleOnly = false;
         assertEquals(WRONG_ELEMENT_FOUND_MESSAGE,
-                     mockedAccessibilityNodes[3],
+                     mockedAccessibilityNodes[4],
                      traverser.getCorrespondingAccessibilityNodeInfo(element, mockedMatcher, visibleOnly));
     }
 
