@@ -205,8 +205,8 @@ public abstract class AccessibilityNodeInfoWrapper implements UiNode {
             UiNode wrapper = null;
             if (child != null) {
                 String childPath = new StringBuilder().append(path)
-                                                      .append(AccessibilityElement.PATH_SEPARATOR)
                                                       .append(index)
+                                                      .append(AccessibilityElement.PATH_SEPARATOR)
                                                       .toString();
                 wrapper = wrapChild(child, index, childPath);
             }
