@@ -10,14 +10,14 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.ui.selector.CssAttribute;
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
 import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
+
+import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * Class responsible for traversing {@link AccessibilityNodeInfo accessibility nodes} hierarchy by the given root node.
@@ -149,7 +149,7 @@ public class AccessibilityNodeTraverser {
                                                                        boolean visibleOnly) {
         String path = element.getPath();
         List<String> pathIndexes = path.trim().isEmpty() ? new ArrayList<String>()
-                : Arrays.asList(path.split(AccessibilityElementBuilder.PATH_SEPARATOR));
+                : Arrays.asList(path.split(AccessibilityElement.PATH_SEPARATOR));
         Iterator<String> pathIterator = pathIndexes.iterator();
 
         AccessibilityNodeInfo accessibilityNodeInfo = findNodeByPath(localRootNodeInfo,
