@@ -24,6 +24,7 @@ public class UiElementXPathRetriever implements Dispatchable {
     public Object handle(Object[] args) throws Exception {
         String xPathQuery = (String) args[0];
         boolean visibleOnly = (boolean) args[1];
+        AccessibilityElement localRootElement = (AccessibilityElement) args[2];
 
         AccessibilityHelper accessibilityHelper = AccessibilityFactory.getAccessibilityHelper();
         AccessibilityNodeInfo accessibilityRootNode = accessibilityHelper.getRootInActiveWindow();
@@ -32,6 +33,11 @@ public class UiElementXPathRetriever implements Dispatchable {
 
         JXPathContext context = JXPathContext.newContext(uiRoot);
         QueryExecutor executor = new QueryExecutor(context);
-        return executor.execute(xPathQuery, visibleOnly);
+
+        if (localRootElement == null) {
+            return executor.execute(xPathQuery, visibleOnly);
+        } else {
+            return executor.executeOnLocalRoot(localRootElement, xPathQuery, visibleOnly);
+        }
     }
 }
