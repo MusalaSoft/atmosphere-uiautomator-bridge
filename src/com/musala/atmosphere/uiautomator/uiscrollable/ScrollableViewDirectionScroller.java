@@ -3,7 +3,7 @@ package com.musala.atmosphere.uiautomator.uiscrollable;
 import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.musala.atmosphere.commons.ScrollDirection;
-import com.musala.atmosphere.commons.ui.UiElementDescriptor;
+import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.util.UiSelectorParser;
 
@@ -18,15 +18,11 @@ public class ScrollableViewDirectionScroller implements Dispatchable {
     @Override
     public Object handle(Object[] args) throws Exception {
         ScrollDirection scrollDirection = (ScrollDirection) args[0];
-
-        UiElementDescriptor descriptor = (UiElementDescriptor) args[1];
-
-        UiSelector selector = UiSelectorParser.convertSelector(descriptor);
+        UiElementPropertiesContainer propertiesContainer = (UiElementPropertiesContainer) args[1];
+        UiSelector selector = UiSelectorParser.convertSelector(propertiesContainer);
 
         Integer maxSwipes = (Integer) args[2];
-
         Integer maxSteps = (Integer) args[3];
-
         Boolean isVertical = (Boolean) args[4];
 
         UiScrollable scrollableView = new UiScrollable(selector);
@@ -39,7 +35,6 @@ public class ScrollableViewDirectionScroller implements Dispatchable {
 
         if (maxSteps != 0) {
             switch (scrollDirection) {
-
                 case SCROLL_TO_BEGINNING:
                     response = scrollableView.scrollToBeginning(maxSwipes, maxSteps);
                     break;
@@ -57,7 +52,6 @@ public class ScrollableViewDirectionScroller implements Dispatchable {
             }
         } else {
             switch (scrollDirection) {
-
                 case SCROLL_TO_BEGINNING:
                     response = scrollableView.scrollToBeginning(maxSwipes);
                     break;

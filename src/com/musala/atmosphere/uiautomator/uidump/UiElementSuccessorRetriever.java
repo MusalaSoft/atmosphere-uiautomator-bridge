@@ -1,22 +1,22 @@
 package com.musala.atmosphere.uiautomator.uidump;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.exceptions.UiElementFetchingException;
+import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
  * Class that retrieves {@link AccessibilityElement child UI elements} for a given {@link AccessibilityElement
  * accessibility element}. Found children are present on the current screen and matching the given
  * {@link UiElementSelector selector}.
- * 
+ *
  * @author filareta.yordanova
  *
  */
@@ -32,7 +32,7 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         AccessibilityNodeInfo accessibilityRootNode = accessibilityHelper.getRootInActiveWindow();
 
         AccessibilityNodeTraverser traverser = new AccessibilityNodeTraverser(accessibilityRootNode, "");
-        UiElementPropertiesContainerMatcher propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
+        UiElementMatcher<UiElementPropertiesContainer> propertiesMatcher = AccessibilityFactory.getUiElementPropertiesContainerMatcher();
 
         AccessibilityNodeInfo parentAccessibilityNode = traverser.getCorrespondingAccessibilityNodeInfo(parentElement,
                                                                                                         propertiesMatcher,
@@ -45,7 +45,7 @@ public class UiElementSuccessorRetriever implements Dispatchable {
         AccessibilityNodeTraverser successorsTraverser = new AccessibilityNodeTraverser(parentAccessibilityNode,
                                                                                         parentElement.getPath());
 
-        UiElementSelectorMatcher successorSelectorMatcher = AccessibilityFactory.getUiElementSelectorMatcher();
+        UiElementMatcher<UiElementSelector> successorSelectorMatcher = AccessibilityFactory.getUiElementSelectorMatcher();
 
         return successorsTraverser.getChildren(successorSelectorMatcher,
                                                successorSelector,

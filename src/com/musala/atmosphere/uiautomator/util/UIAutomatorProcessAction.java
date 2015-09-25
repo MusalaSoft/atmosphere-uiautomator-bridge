@@ -11,9 +11,11 @@ import com.musala.atmosphere.uiautomator.notificationbar.QuickSettingsOpener;
 import com.musala.atmosphere.uiautomator.ping.PingHandler;
 import com.musala.atmosphere.uiautomator.swipe.ElementSwiper;
 import com.musala.atmosphere.uiautomator.textfieldclear.TextFieldEraser;
-import com.musala.atmosphere.uiautomator.uidump.UiElementRetriever;
 import com.musala.atmosphere.uiautomator.toast.ToastMessageObtainer;
+import com.musala.atmosphere.uiautomator.uidump.UiElementRetriever;
 import com.musala.atmosphere.uiautomator.uidump.UiElementSuccessorRetriever;
+import com.musala.atmosphere.uiautomator.uidump.UiElementXPathRetriever;
+import com.musala.atmosphere.uiautomator.uidump.UiElementXPathSuccessorRetriever;
 import com.musala.atmosphere.uiautomator.uidump.UiTreeBuilder;
 import com.musala.atmosphere.uiautomator.uidump.UiXmlDumper;
 import com.musala.atmosphere.uiautomator.uiscrollable.ScrollableViewDirectionScroller;
@@ -105,7 +107,17 @@ public enum UIAutomatorProcessAction {
      * Indicates that the UIautomator process should be stopped.
      */
     STOP(UIAutomatorRequest.STOP, ActionDispatcher.class),
-
+    /**
+     * Retrieves all UI elements matching the given xpath query.
+     */
+    EXECUTE_XPATH_QUERY(UIAutomatorRequest.EXECUTE_XPATH_QUERY, UiElementXPathRetriever.class),
+    /**
+     * Retrieves UI element's children matching the given xpath query.
+     */
+    EXECUTE_XPATH_QUERY_ON_LOCAL_ROOT(UIAutomatorRequest.EXECUTE_XPATH_QUERY_ON_LOCAL_ROOT, UiElementXPathSuccessorRetriever.class),
+    /**
+     * Retrieves UI element's children matching the given selector.
+     */
     GET_CHILDREN(UIAutomatorRequest.GET_CHILDREN, UiElementSuccessorRetriever.class),
 
     /**

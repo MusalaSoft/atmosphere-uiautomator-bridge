@@ -6,17 +6,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import android.os.Build;
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.android.uiautomator.core.AccessibilityNodeInfoDumper;
 import com.android.uiautomator.core.UiDevice;
 import com.musala.atmosphere.uiautomator.exception.IncompatibleAndroidSdkException;
 import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEventHandler;
 import com.musala.atmosphere.uiautomator.helper.util.AccessibilityEventHandlerCompat;
 
+import android.os.Build;
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
- * {@link AccessibilityHelper} implementation compatible <b>only</b> with API level 17.
+ * {@link AccessibilityHelper} implementation compatible <b>only</b> with API level 17.<br/>
+ * For API 18 use {@link AccessibilityHelperImpl}.
  *
  * @author vassil.angelov
  *
@@ -151,9 +152,9 @@ public class AccessibilityHelperCompat implements AccessibilityHelper {
         Object eventListenerInstance = getProxyForClass(eventListenerInterface, accessibilityHandler);
 
         try {
-            Method addListenerMethod = automatorBridge.getClass()
-                    .getDeclaredMethod(UI_AUTOMATOR_BRIDGE_ADD_ACCESSIBILITY_EVENT_LISTENER_METHOD_NAME,
-                                       eventListenerInterface);
+            Method addListenerMethod = automatorBridge.getClass().getDeclaredMethod(
+                                                                                    UI_AUTOMATOR_BRIDGE_ADD_ACCESSIBILITY_EVENT_LISTENER_METHOD_NAME,
+                                                                                    eventListenerInterface);
             addListenerMethod.setAccessible(true);
             addListenerMethod.invoke(automatorBridge, eventListenerInstance);
 

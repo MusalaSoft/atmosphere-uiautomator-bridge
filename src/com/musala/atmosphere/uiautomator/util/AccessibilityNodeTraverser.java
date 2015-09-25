@@ -10,21 +10,21 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.musala.atmosphere.commons.ui.UiElementPropertiesContainer;
 import com.musala.atmosphere.commons.ui.selector.CssAttribute;
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementPropertiesContainerMatcher;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * Class responsible for traversing {@link AccessibilityNodeInfo accessibility nodes} hierarchy by the given root node.
- * 
+ *
  * @author filareta.yordanova
- * 
- * 
+ *
+ *
  */
 public class AccessibilityNodeTraverser {
     private static final int ROOT_NODE_INDEX = 0;
@@ -35,7 +35,7 @@ public class AccessibilityNodeTraverser {
 
     /**
      * Creates a new {@link AccessibilityNodeTraverser} by a given local root and the absolute path to it.
-     * 
+     *
      * @param localRootNodeInfo
      *        - the node information of the local root
      * @param pathToLocalRoot
@@ -48,7 +48,7 @@ public class AccessibilityNodeTraverser {
 
     /**
      * Finds all elements in the hierarchy of {@link AccessibilityNodeInfo accessibility nodes} that are matching the
-     * given {@link UiElementSelector selector} and {@link UiElementSelectorMatcher matcher}.
+     * given {@link UiElementSelector selector} and {@link UiElementMatcher matcher}.
      *
      * @param matcher
      *        - defines the strategy for matching the given {@link UiElementSelector selector} and node from the
@@ -59,7 +59,7 @@ public class AccessibilityNodeTraverser {
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return list of {@link AccessibilityElements} that matches the given element {@link UiElementSelector properties}
      */
-    public List<AccessibilityElement> find(UiElementSelectorMatcher matcher,
+    public List<AccessibilityElement> find(UiElementMatcher<UiElementSelector> matcher,
                                            UiElementSelector selector,
                                            boolean visibleOnly) {
         List<AccessibilityElement> matchingElements = new ArrayList<AccessibilityElement>();
@@ -81,8 +81,8 @@ public class AccessibilityNodeTraverser {
 
     /**
      * Finds all children of the root in the hierarchy of {@link AccessibilityNodeInfo accessibility nodes} that are
-     * matching the given {@link UiElementSelector selector} and {@link UiElementSelectorMatcher matcher}.
-     * 
+     * matching the given {@link UiElementSelector selector} and {@link UiElementMatcher matcher}.
+     *
      * @param matcher
      *        - defines the strategy for matching the given {@link UiElementSelector selector} and node from the
      *        hierarchy
@@ -94,7 +94,7 @@ public class AccessibilityNodeTraverser {
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
      * @return list of {@link AccessibilityElements} that are children of the root
      */
-    public List<AccessibilityElement> getChildren(UiElementSelectorMatcher matcher,
+    public List<AccessibilityElement> getChildren(UiElementMatcher<UiElementSelector> matcher,
                                                   UiElementSelector selector,
                                                   boolean directOnly,
                                                   boolean visibleOnly) {
@@ -130,9 +130,9 @@ public class AccessibilityNodeTraverser {
     /**
      * Returns the corresponding {@link AccessibilityNodeInfo accessibility node} matching the given
      * {@link AccessibilityElement element} exists in the hierarchy. Characteristics of the given
-     * {@link UiElementSelector selector} and the strategy defined by the {@link UiElementSelectorMatcher matcher} are
-     * used when the check is performed.
-     * 
+     * {@link UiElementSelector selector} and the strategy defined by the {@link UiElementMatcher matcher} are used when
+     * the check is performed.
+     *
      * @param element
      *        - {@link AccessibilityElement accessibility element} for which a match will be searched in the
      *        {@link AccessibilityNodeInfo nodes} hierarchy
@@ -145,7 +145,7 @@ public class AccessibilityNodeTraverser {
      *         {@link UiElementSelector selector} and the path contained in the {@link AccessibilityElement element}
      */
     public AccessibilityNodeInfo getCorrespondingAccessibilityNodeInfo(AccessibilityElement element,
-                                                                       UiElementPropertiesContainerMatcher propertiesMatcher,
+                                                                       UiElementMatcher<UiElementPropertiesContainer> propertiesMatcher,
                                                                        boolean visibleOnly) {
         String path = element.getPath();
         List<String> pathIndexes = path.trim().isEmpty() ? new ArrayList<String>()
@@ -208,7 +208,7 @@ public class AccessibilityNodeTraverser {
 
     private boolean isMatchFound(AccessibilityNodeInfo nodeInfo,
                                  UiElementSelector selector,
-                                 UiElementSelectorMatcher matcher,
+                                 UiElementMatcher<UiElementSelector> matcher,
                                  int index) {
         Integer selectorIndex = selector.getIntegerValue(CssAttribute.INDEX);
 

@@ -1,18 +1,18 @@
 package com.musala.atmosphere.uiautomator.uidump;
 
-import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.musala.atmosphere.commons.ui.selector.UiElementSelector;
 import com.musala.atmosphere.commons.ui.tree.AccessibilityElement;
-import com.musala.atmosphere.commons.ui.tree.matcher.UiElementSelectorMatcher;
+import com.musala.atmosphere.commons.ui.tree.matcher.UiElementMatcher;
 import com.musala.atmosphere.uiautomator.Dispatchable;
 import com.musala.atmosphere.uiautomator.accessibility.AccessibilityFactory;
 import com.musala.atmosphere.uiautomator.helper.AccessibilityHelper;
 import com.musala.atmosphere.uiautomator.util.AccessibilityNodeTraverser;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 /**
  * Class used to get all {@link AccessibilityElement UI elements} present on the screen and matching a given selector.
- * 
+ *
  * @author denis.bialev
  *
  */
@@ -29,7 +29,7 @@ public class UiElementRetriever implements Dispatchable {
         AccessibilityNodeTraverser accessibilityNodeTraverser = new AccessibilityNodeTraverser(accessibilityRootNode,
                                                                                                "");
 
-        UiElementSelectorMatcher selectorMatcher = AccessibilityFactory.getUiElementSelectorMatcher();
+        UiElementMatcher<UiElementSelector> selectorMatcher = AccessibilityFactory.getUiElementSelectorMatcher();
 
         return accessibilityNodeTraverser.find(selectorMatcher, selector, visibleOnly);
     }

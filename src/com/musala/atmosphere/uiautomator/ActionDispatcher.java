@@ -36,7 +36,6 @@ public class ActionDispatcher extends UiAutomatorTestCase implements RequestHand
      */
     public void testRun() {
         Log4JConfigurator.configure();
-        AccessibilityFactory.initialize();
 
         AccessibilityHelper accessibilityHelper = AccessibilityFactory.getAccessibilityHelper();
         accessibilityHelper.initializeAccessibilityEventListener();
