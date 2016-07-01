@@ -45,7 +45,7 @@ dependencies {
         }
     }
     compile 'de.mindpipe.android:android-logging-log4j:1.0.3'
-    compile ('com.musala.atmosphere:atmosphere-ad-commons:0.0.1') {
+    compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.0.1') {
         exclude group: 'android'
     }
     compile 'commons-jxpath:commons-jxpath:1.3'
