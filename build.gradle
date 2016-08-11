@@ -48,7 +48,8 @@ dependencies {
     compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.0.1') {
         exclude group: 'android'
     }
-    compile 'commons-jxpath:commons-jxpath:1.3'
+    // TODO: Change this after uploading the file to a Maven repo
+    compile files ('lib/commons-jxpath-openbeans.jar')
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
