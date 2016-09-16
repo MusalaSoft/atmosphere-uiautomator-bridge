@@ -4,6 +4,8 @@ apply plugin: 'eu.appsatori.fatjar'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+import org.apache.tools.ant.taskdefs.condition.Os
+
 version = '0.0.1'
 jar {
     manifest {
@@ -31,6 +33,8 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
+
+def androidSdkHome = "${System.getenv('ANDROID_HOME')}"
 
 dependencies {
     compile fileTree(dir: androidSdkHome + '/platforms/' + androidSdkTarget, include: '*.jar'), {
@@ -85,7 +89,8 @@ fatJar {
 task dex(dependsOn: fatJar, type:Exec) {
     project.dexDir.mkdirs()
     workingDir '.'
-    commandLine androidSdkHome + '/' + androidSdkBuildToolsDir + '/' + 'dx', '--dex', '--no-strict', '--output=' + project.dexedJar, jar.archivePath
+    def dx = 'dx' + (Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : '')
+    commandLine androidSdkHome + '/' + androidSdkBuildToolsDir + '/' + dx, '--dex', '--no-strict', '--output=' + project.dexedJar, jar.archivePath
 }
 
 publishToMavenLocal.dependsOn fatJar
