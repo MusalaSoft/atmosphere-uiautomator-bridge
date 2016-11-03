@@ -30,8 +30,9 @@ project.ext {
 }
 
 repositories {
-    mavenCentral()
     mavenLocal()
+    jcenter()
+    mavenCentral()
 }
 
 def androidSdkHome = "${System.getenv('ANDROID_HOME')}"
@@ -50,7 +51,7 @@ dependencies {
     }
     compile 'de.mindpipe.android:android-logging-log4j:1.0.3'
     compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.0.1') {
-        exclude group: 'android'
+        exclude module: 'framework-api19'
     }
     // TODO: Change this after uploading the file to a Maven repo
     compile files ('lib/commons-jxpath-openbeans.jar')
