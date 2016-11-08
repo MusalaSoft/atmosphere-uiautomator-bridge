@@ -38,13 +38,12 @@ repositories {
 def androidSdkHome = "${System.getenv('ANDROID_HOME')}"
 
 dependencies {
-    compile fileTree(dir: androidSdkHome + '/platforms/' + androidSdkTarget, include: '*.jar'), {
+    compile ('com.musala.atmosphere:framework-api19:0.0.1') {
         ext {
             fatJarExclude = true
         }
     }
-    // TODO: Change this after uploading the file to a Maven repo
-    compile files('lib/uiautomator_api18_dex2jar.jar'), {
+    compile ('com.musala.atmosphere:uiautomator-api18:0.0.1') {
         ext {
             fatJarExclude = true
         }
@@ -53,8 +52,7 @@ dependencies {
     compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.0.1') {
         exclude module: 'framework-api19'
     }
-    // TODO: Change this after uploading the file to a Maven repo
-    compile files ('lib/commons-jxpath-openbeans.jar')
+    compile 'com.musala.atmosphere:openbeans-jxpath:0.0.1'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
