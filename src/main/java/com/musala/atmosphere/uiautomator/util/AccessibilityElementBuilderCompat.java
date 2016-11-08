@@ -10,7 +10,7 @@ import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * {@link AccessibilityElementBuilder} implementation intended <b>only for API 17</b>.<br/>
+ * {@link AccessibilityElementBuilder} implementation intended <b>only for API 17</b>.<br>
  * For API 18 and above use {@link AccessibilityElementBuilderImpl}.
  *
  * @author yordan.petrov

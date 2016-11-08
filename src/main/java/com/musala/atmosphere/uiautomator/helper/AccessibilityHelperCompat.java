@@ -16,7 +16,7 @@ import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * {@link AccessibilityHelper} implementation compatible <b>only</b> with API level 17.<br/>
+ * {@link AccessibilityHelper} implementation compatible <b>only</b> with API level 17.<br>
  * For API 18 use {@link AccessibilityHelperImpl}.
  *
  * @author vassil.angelov

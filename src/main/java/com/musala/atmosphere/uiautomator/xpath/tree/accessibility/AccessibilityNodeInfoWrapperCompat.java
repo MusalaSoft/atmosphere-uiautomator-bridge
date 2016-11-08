@@ -6,8 +6,8 @@ import com.musala.atmosphere.uiautomator.xpath.tree.UiNode;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * {@link UiNode} implementation that extends {@link AccessibilityNodeInfoWrapper} intended <b>only for API level 17<b>.
- * <br/>
+ * {@link UiNode} implementation that extends {@link AccessibilityNodeInfoWrapper} intended <b>only for API level 17</b>.
+ * <br>
  * For API level 18 and above use {@link AccessibilityNodeInfoWrapperImpl}.
  *
  * @author yordan.petrov
@@ -20,8 +20,6 @@ public class AccessibilityNodeInfoWrapperCompat extends AccessibilityNodeInfoWra
      *
      * @param accessibilityNode
      *        - the {@link AccessibilityNodeInfo} to be wrapped
-     * @param index
-     *        - the index of the node in the hierarchy
      */
     public AccessibilityNodeInfoWrapperCompat(AccessibilityNodeInfo accessibilityNode) {
         super(accessibilityNode, 0, "");
@@ -44,7 +42,7 @@ public class AccessibilityNodeInfoWrapperCompat extends AccessibilityNodeInfoWra
      * Constructs an {@link AccessibilityNodeInfoWrapperCompat} by a given {@link AccessibilityNodeInfo}, index and
      * path.
      *
-     * @param accessibilityNode
+     * @param ani
      *        - the {@link AccessibilityNodeInfo} to be wrapped
      * @param index
      *        - the index of the node in the hierarchy

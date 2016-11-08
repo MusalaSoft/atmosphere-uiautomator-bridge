@@ -53,7 +53,7 @@ public interface UiNode {
     String getPath();
 
     /**
-     * Gets the list of direct child nodes.<br/>
+     * Gets the list of direct child nodes.<br>
      * <b>Note:</b> the method is intentionally named this way so that XPath queries using the <i>node</i> tag can
      * successfully traverse the structure.
      *

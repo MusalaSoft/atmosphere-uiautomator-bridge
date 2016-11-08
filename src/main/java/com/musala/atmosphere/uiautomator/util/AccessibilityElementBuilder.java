@@ -36,6 +36,8 @@ public interface AccessibilityElementBuilder {
      *        {@link AccessibilityElementBuilder builder}.
      * @param pathToLocalRoot
      *        - path from the absolute root to the local root of the hierarchy
+     * @param index
+     *        - index of the node
      * @return an {@link AccessibilityElement} based on the given {@link AccessibilityNodeInfo}
      */
     public AccessibilityElement build(AccessibilityNodeInfo nodeInfo,

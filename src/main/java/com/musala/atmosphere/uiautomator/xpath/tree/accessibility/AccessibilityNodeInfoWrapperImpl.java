@@ -8,7 +8,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * {@link UiNode} implementation that extends {@link AccessibilityNodeInfoWrapper} intended <b>only for API level 18 and
- * aboce<b>.<br/>
+ * aboce</b>.<br>
  * For API level 17 use {@link AccessibilityNodeInfoWrapperCompat}.
  *
  * @author yordan.petrov
@@ -21,8 +21,6 @@ public class AccessibilityNodeInfoWrapperImpl extends AccessibilityNodeInfoWrapp
      *
      * @param accessibilityNode
      *        - the {@link AccessibilityNodeInfo} to be wrapped
-     * @param index
-     *        - the index of the node in the hierarchy
      */
     public AccessibilityNodeInfoWrapperImpl(AccessibilityNodeInfo accessibilityNode) {
         super(accessibilityNode, 0, "");
@@ -44,7 +42,7 @@ public class AccessibilityNodeInfoWrapperImpl extends AccessibilityNodeInfoWrapp
     /**
      * Constructs an {@link AccessibilityNodeInfoWrapperImpl} by a given {@link AccessibilityNodeInfo}, index and path.
      *
-     * @param accessibilityNode
+     * @param ani
      *        - the {@link AccessibilityNodeInfo} to be wrapped
      * @param index
      *        - the index of the node in the hierarchy

@@ -10,7 +10,7 @@ public class CharSequenceUtils {
     /**
      * Converts a given {@link CharSequence char sequence} to string.
      *
-     * @param charSequence
+     * @param sequence
      *        - the {@link CharSequence char sequence} to be converted
      * @return a String build from the given {@link CharSequence char sequence}
      */

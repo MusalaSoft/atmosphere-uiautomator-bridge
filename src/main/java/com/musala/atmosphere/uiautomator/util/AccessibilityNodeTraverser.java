@@ -57,7 +57,7 @@ public class AccessibilityNodeTraverser {
      *        - contains the properties which accessibility nodes should match
      * @param visibleOnly
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
-     * @return list of {@link AccessibilityElements} that matches the given element {@link UiElementSelector properties}
+     * @return list of {@link AccessibilityElement} that matches the given element {@link UiElementSelector properties}
      */
     public List<AccessibilityElement> find(UiElementMatcher<UiElementSelector> matcher,
                                            UiElementSelector selector,
@@ -92,7 +92,7 @@ public class AccessibilityNodeTraverser {
      *        - if <code>true</code> only direct children are traversed, otherwise all children are traversed
      * @param visibleOnly
      *        - if <code>true</code> only the visible nodes will be used; if <code>false</code> all nodes will be used
-     * @return list of {@link AccessibilityElements} that are children of the root
+     * @return list of {@link AccessibilityElement} that are children of the root
      */
     public List<AccessibilityElement> getChildren(UiElementMatcher<UiElementSelector> matcher,
                                                   UiElementSelector selector,
