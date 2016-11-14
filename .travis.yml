@@ -1,0 +1,22 @@
+language: android
+jdk: oraclejdk7
+os: 
+    - linux
+
+android:
+    components:
+    - platform-tools
+    - tools
+    - build-tools-23.0.3
+    - android-19
+    - extr
+
+cache:
+    directories:
+        - $HOME/.gradle
+
+before_script:
+    - chmod +x gradlew
+
+script:
+    - ./gradlew build
