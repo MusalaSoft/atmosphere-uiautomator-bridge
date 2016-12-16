@@ -1,7 +1,11 @@
 language: android
 jdk: oraclejdk7
-os: 
-    - linux
+os: linux
+
+notifications:
+  email:
+    recipients:
+        - atmosphere@musala.com
 
 android:
     components:
@@ -15,8 +19,15 @@ cache:
     directories:
         - $HOME/.gradle
 
-before_script:
+install:
     - chmod +x gradlew
+    - git clone https://github.com/MusalaSoft/atmosphere-commons.git
+    - git clone https://github.com/MusalaSoft/atmosphere-agent-device-lib.git
+    - chmod +x travis-scripts/branch-checkout.sh
+    - cd atmosphere-commons && ../travis-scripts/branch-checkout.sh
+    - ./gradlew build publishToMavenLocal && cd ..
+    - cd atmosphere-agent-device-lib && ../travis-scripts/branch-checkout.sh
+    - ./gradlew build publishToMavenLocal && cd ..
 
 script:
     - ./gradlew build
