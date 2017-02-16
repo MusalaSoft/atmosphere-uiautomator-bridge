@@ -38,21 +38,21 @@ repositories {
 def androidSdkHome = "${System.getenv('ANDROID_HOME')}"
 
 dependencies {
-    compile ('com.musala.atmosphere:framework-api19:0.0.1') {
+    compile ('com.musala.atmosphere:framework-api19:0.+') {
         ext {
             fatJarExclude = true
         }
     }
-    compile ('com.musala.atmosphere:uiautomator-api18:0.0.1') {
+    compile ('com.musala.atmosphere:uiautomator-api18:0.+') {
         ext {
             fatJarExclude = true
         }
     }
     compile 'de.mindpipe.android:android-logging-log4j:1.0.3'
-    compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.0.1') {
+    compile ('com.musala.atmosphere:atmosphere-agent-device-lib:0.+') {
         exclude module: 'framework-api19'
     }
-    compile 'com.musala.atmosphere:openbeans-jxpath:0.0.1'
+    compile 'com.musala.atmosphere:openbeans-jxpath:0.+'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
@@ -101,4 +101,14 @@ tasks.withType(JavaCompile) {
 tasks.withType(Test) {
     scanForTestClasses = false
     include "**/*Test.class"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
