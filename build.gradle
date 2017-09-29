@@ -6,7 +6,7 @@ targetCompatibility = 1.6
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
-version = '0.0.1'
+version = '0.0.2'
 jar {
     manifest {
         attributes 'Implementation-Title': 'Atmosphere UIAutomator Bridge',
