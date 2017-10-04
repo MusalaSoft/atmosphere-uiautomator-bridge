@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/MusalaSoft/atmosphere-uiautomator-bridge.svg?branch=master)](https://travis-ci.org/MusalaSoft/atmosphere-uiautomator-bridge) [ ![Download](https://api.bintray.com/packages/musala/atmosphere/atmosphere-uiautomator-bridge/images/download.svg) ](https://bintray.com/musala/atmosphere/atmosphere-uiautomator-bridge/_latestVersion)    
 See our site for better context of this readme. [Click here](http://atmosphereframework.com/)
 
 # atmosphere-uiautomator-bridge
