@@ -16,13 +16,21 @@
 
 apply plugin: 'maven-publish'
 apply plugin: 'eu.appsatori.fatjar'
+apply plugin: 'com.jfrog.bintray'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
+// bintray publishing parameters
 version = '0.0.2'
+def organizationName = 'musala'
+def repoName = 'atmosphere'
+def projectName = 'atmosphere-uiautomator-bridge'
+def url = 'https://github.com/MusalaSoft/atmosphere-uiautomator-bridge.git'
+def description = ''
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Atmosphere UIAutomator Bridge',
@@ -37,6 +45,7 @@ buildscript {
 
     dependencies {
         classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1'
     }
 }
 
@@ -78,10 +87,15 @@ publishing {
     publications {
         atmosphereUIAutomatorBridge(MavenPublication) {
             groupId 'com.musala.atmosphere'
-            artifactId 'atmosphere-uiautomator-bridge'
+            artifactId "$projectName"
             version version
 
             artifact source: project.dexedJar, extension: 'jar'
+
+            if (System.getProperty('bintray.user') != null) {
+                artifact sourcesJar
+                artifact javadocJar
+            }
         }
     }
 
@@ -127,4 +141,36 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
+}
+
+/*
+ This is publishing task that uploads the artifacts to bintray.com.
+ see: https://github.com/bintray/gradle-bintray-plugin
+ see: https://reflectoring.io/guide-publishing-to-bintray-with-gradle/
+
+ Use the following command for automatic upload to bintray:
+ $ ./gradlew bintrayUpload -Dbintray.user=<BINTRAY_USERNAME> -Dbintray.key=<BINTRAY_API_KEY> -Dgpg.pass=<ATMOSPHERE_PASSPHRASE>
+*/
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['atmosphereUIAutomatorBridge']
+
+	pkg {
+        repo = "$repoName" // existing repository in bintray to add the artifacts to
+        name = "$projectName" // package name, current project name
+        userOrg = "$organizationName" // the name of the organization, If not added will use 'BINTRAY_USER' by default
+        licenses = ['GPL-3.0']
+        vcsUrl = "$url" // your VCS URL
+        version {
+            name = project.version.toString()
+            desc = "$description"
+            released  = new Date()
+
+            gpg {
+                sign = true // Determines whether to GPG sign the files. The default is false
+                passphrase = System.getProperty('gpg.pass') // Optional. The passphrase for GPG signing'
+            }
+        }
+    }
 }
